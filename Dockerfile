@@ -1,7 +1,7 @@
 # Container build. Used by the public demo (see DEMO.md) and optional for production
 # (the primary production setup is a self-contained binary under systemd; see DEPLOY.md).
 #
-# Build from the repo root:  docker build -f deploy/Dockerfile -t hsconcessions .
+# Build from the repo root:  docker build -t hsconcessions .
 # Run with a persistent volume (data, logs, backups must survive restarts in production):
 #   docker run -d -p 127.0.0.1:5080:8080 -v /var/lib/hsconcessions/myschool:/var/lib/hsconcessions \
 #     --env-file /etc/hsconcessions/myschool.env hsconcessions

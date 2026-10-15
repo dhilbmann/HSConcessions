@@ -24,7 +24,8 @@ src/HSConcessions.Web/      the app (Api/, Auth/, Pages/Admin/, Services/, Model
 tests/HSConcessions.Tests/  pricing, permissions, stand transitions, JSON store atomicity, images, retention, iCal
 samples/generic/            neutral seed profile
 samples/wildcatsnacks/      Mountain View High School (WildcatSnacks) seed profile
-deploy/                     Caddyfile, systemd unit, Dockerfile, DEPLOY.md
+Dockerfile                  container build (public demo; optional for production)
+deploy/                     Caddyfile, systemd unit, DEPLOY.md, DEMO.md
 ```
 
 ## Run locally

@@ -17,7 +17,7 @@ The demo is the normal app running in the **Demo** environment (`ASPNETCORE_ENVI
 1. Push this repository to GitHub (a private repo is fine).
 2. Sign in at <https://render.com> with GitHub → **New** → **Blueprint** → pick the repo.
    Render reads [`render.yaml`](../render.yaml) and creates the `wildcatsnacks-demo` web service.
-   (Or **New → Web Service**, choose **Docker**, Dockerfile path `deploy/Dockerfile`, and add the environment variables
+   (Or **New → Web Service**, choose **Docker**, Dockerfile path `Dockerfile` (repo root), and add the environment variables
    `ASPNETCORE_ENVIRONMENT=Demo` and `Seed__Profile=wildcatsnacks`.)
 3. Wait for the first build (several minutes). The site is at `https://wildcatsnacks-demo.onrender.com` (or the name Render
    assigns). Share `/admin` for the admin side, `/` for the phone menu, and `/display/stadium` for a TV.
@@ -28,6 +28,6 @@ menu — fine for a demo.
 
 ## Other hosts
 
-Anything that runs a Docker container behind HTTPS works the same way: build `deploy/Dockerfile`, set
+Anything that runs a Docker container behind HTTPS works the same way: build the `Dockerfile` in the repo root, set
 `ASPNETCORE_ENVIRONMENT=Demo` and `Seed__Profile=wildcatsnacks`. The app listens on `$PORT` if the platform sets it,
 otherwise 8080, and `Hosting__TrustForwardedHeaders` is already on in Demo so the platform's HTTPS is detected.

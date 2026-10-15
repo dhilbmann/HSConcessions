@@ -3,7 +3,7 @@ services:
   - type: web
     name: wildcatsnacks-demo
     runtime: docker
-    dockerfilePath: ./deploy/Dockerfile
+    dockerfilePath: ./Dockerfile
     dockerContext: .
     plan: free
     healthCheckPath: /theme.css
