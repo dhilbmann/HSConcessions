@@ -1,0 +1,65 @@
+@page "/admin/settings"
+@model HSConcessions.Web.Pages.Admin.SettingsModel
+@{
+    ViewData["Title"] = "Settings";
+    var f = Model.Form;
+}
+<h1>Site settings</h1>
+<p class="muted small">Colors, fonts, images, and display text are on the <a href="/admin/branding">Branding</a> page. Stand names and URLs are on <a href="/admin/stand-setup">Stand setup</a>.</p>
+<form method="post">
+    <section class="card">
+        <h2>Identity</h2>
+        <div class="field">
+            <label for="baseurl">Site base URL</label>
+            <input id="baseurl" name="Form.SiteBaseUrl" type="url" required value="@f.SiteBaseUrl">
+            <div class="help">Used for QR codes and links. Change it when the domain changes, then re-print QR signs.</div>
+        </div>
+        <div class="field-row">
+            <div class="field"><label for="title">Site title</label><input id="title" name="Form.SiteTitle" type="text" required maxlength="60" value="@f.SiteTitle"></div>
+            <div class="field"><label for="short">Short name</label><input id="short" name="Form.SiteShortName" type="text" required maxlength="30" value="@f.SiteShortName"></div>
+        </div>
+        <div class="field-row">
+            <div class="field"><label for="school">School name</label><input id="school" name="Form.SchoolName" type="text" maxlength="80" value="@f.SchoolName"></div>
+            <div class="field"><label for="mascot">Mascot name</label><input id="mascot" name="Form.MascotName" type="text" maxlength="40" value="@f.MascotName"></div>
+        </div>
+        <div class="field"><label for="tagline">Tagline (optional)</label><input id="tagline" name="Form.Tagline" type="text" maxlength="120" value="@f.Tagline"></div>
+        <div class="field">
+            <label for="tz">Time zone</label>
+            <input id="tz" name="Form.TimeZone" type="text" required value="@f.TimeZone" list="tzlist">
+            <datalist id="tzlist">
+                @foreach (var tz in HSConcessions.Web.Pages.Admin.SettingsModel.TimeZones()) { <option value="@tz"></option> }
+            </datalist>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Behavior</h2>
+        <div class="field-row">
+            <div class="field"><label for="b1">“Opening at” window (minutes)</label><input id="b1" name="Form.OpeningSoonMinutes" type="number" min="1" max="1440" value="@f.OpeningSoonMinutes"></div>
+            <div class="field"><label for="b2">TV seconds per category</label><input id="b2" name="Form.CategorySeconds" type="number" min="3" max="600" value="@f.CategorySeconds"></div>
+            <div class="field"><label for="b3">TV refresh (seconds)</label><input id="b3" name="Form.DisplayRefreshSeconds" type="number" min="15" max="3600" value="@f.DisplayRefreshSeconds"></div>
+            <div class="field"><label for="b4">Phone refresh (seconds)</label><input id="b4" name="Form.PublicRefreshSeconds" type="number" min="15" max="3600" value="@f.PublicRefreshSeconds"></div>
+            <div class="field"><label for="b5">Upcoming games shown</label><input id="b5" name="Form.UpcomingGamesCount" type="number" min="0" max="50" value="@f.UpcomingGamesCount"></div>
+        </div>
+    </section>
+    <section class="card">
+        <h2>TV display</h2>
+        <div class="field">
+            <label for="layout">Layout</label>
+            <select id="layout" name="Form.DisplayLayout">
+                @foreach (var l in DisplayLayouts.All)
+                {
+                    <option value="@l" selected="@(l == f.DisplayLayout)">@DisplayLayouts.Label(l)</option>
+                }
+            </select>
+            <div class="help">Each stand can override this on <a href="/admin/stand-setup">Stand setup</a>. To preview a layout on any TV, add <code>?layout=single</code>, <code>?layout=rotate</code>, or <code>?layout=auto</code> to its URL.</div>
+        </div>
+        <label class="check"><input type="checkbox" name="Form.GroupVarieties" value="true" @(f.GroupVarieties ? "checked" : "")> Group varieties under one heading (e.g. “Soda $2.50” with each flavor listed) on the rotating layout</label>
+        <input type="hidden" name="Form.GroupVarieties" value="false">
+        <label class="check"><input type="checkbox" name="Form.ShowClock" value="true" @(f.ShowClock ? "checked" : "")> Show a clock in the top-right of the TV</label>
+        <input type="hidden" name="Form.ShowClock" value="false">
+        <label class="check"><input type="checkbox" name="Form.ShowUpdatedTime" value="true" @(f.ShowUpdatedTime ? "checked" : "")> Show “Menu updated …” time at the bottom of the TV</label>
+        <input type="hidden" name="Form.ShowUpdatedTime" value="false">
+    </section>
+    <div class="sticky-actions"><button class="btn" type="submit">Save settings</button></div>
+</form>

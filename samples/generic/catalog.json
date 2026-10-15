@@ -1,0 +1,420 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-14T00:00:00Z",
+  "categories": [
+    {
+      "id": "cat-beverages",
+      "name": "Beverages",
+      "sortOrder": 10,
+      "imageId": null,
+      "archived": false
+    },
+    {
+      "id": "cat-food",
+      "name": "Food",
+      "sortOrder": 20,
+      "imageId": null,
+      "archived": false
+    },
+    {
+      "id": "cat-candy",
+      "name": "Candy",
+      "sortOrder": 30,
+      "imageId": null,
+      "archived": false
+    },
+    {
+      "id": "cat-snacks",
+      "name": "Snacks",
+      "sortOrder": 40,
+      "imageId": null,
+      "archived": false
+    }
+  ],
+  "subCategories": [
+    {
+      "id": "sub-soda",
+      "categoryId": "cat-beverages",
+      "name": "Soda",
+      "description": "20 oz bottles",
+      "sortOrder": 40,
+      "imageId": null,
+      "archived": false
+    },
+    {
+      "id": "sub-gatorade",
+      "categoryId": "cat-beverages",
+      "name": "Gatorade",
+      "description": "20 oz bottles",
+      "sortOrder": 50,
+      "imageId": null,
+      "archived": false
+    },
+    {
+      "id": "sub-energy",
+      "categoryId": "cat-beverages",
+      "name": "Energy Drink",
+      "description": "",
+      "sortOrder": 60,
+      "imageId": null,
+      "archived": false
+    },
+    {
+      "id": "sub-chips",
+      "categoryId": "cat-snacks",
+      "name": "Chips",
+      "description": "Single-serve bags",
+      "sortOrder": 10,
+      "imageId": null,
+      "archived": false
+    }
+  ],
+  "items": [
+    {
+      "id": "itm-water",
+      "categoryId": "cat-beverages",
+      "subCategoryId": null,
+      "name": "Water",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 10,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-coffee",
+      "categoryId": "cat-beverages",
+      "subCategoryId": null,
+      "name": "Coffee",
+      "description": "Hot, fresh brewed",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-hotchocolate",
+      "categoryId": "cat-beverages",
+      "subCategoryId": null,
+      "name": "Hot Chocolate",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 30,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-pepsi",
+      "categoryId": "cat-beverages",
+      "subCategoryId": "sub-soda",
+      "name": "Pepsi",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 10,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-dietpepsi",
+      "categoryId": "cat-beverages",
+      "subCategoryId": "sub-soda",
+      "name": "Diet Pepsi",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-drpepper",
+      "categoryId": "cat-beverages",
+      "subCategoryId": "sub-soda",
+      "name": "Dr Pepper",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 30,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-dietdrpepper",
+      "categoryId": "cat-beverages",
+      "subCategoryId": "sub-soda",
+      "name": "Diet Dr Pepper",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 40,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-mountaindew",
+      "categoryId": "cat-beverages",
+      "subCategoryId": "sub-soda",
+      "name": "Mountain Dew",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 50,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-sierramist",
+      "categoryId": "cat-beverages",
+      "subCategoryId": "sub-soda",
+      "name": "Sierra Mist",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 60,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-gatorade-fruitpunch",
+      "categoryId": "cat-beverages",
+      "subCategoryId": "sub-gatorade",
+      "name": "Fruit Punch",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 10,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-gatorade-lemonlime",
+      "categoryId": "cat-beverages",
+      "subCategoryId": "sub-gatorade",
+      "name": "Lemon-Lime",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-gatorade-coolblue",
+      "categoryId": "cat-beverages",
+      "subCategoryId": "sub-gatorade",
+      "name": "Cool Blue",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 30,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-gatorade-orange",
+      "categoryId": "cat-beverages",
+      "subCategoryId": "sub-gatorade",
+      "name": "Orange",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 40,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-redbull",
+      "categoryId": "cat-beverages",
+      "subCategoryId": "sub-energy",
+      "name": "Red Bull",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 10,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-monster",
+      "categoryId": "cat-beverages",
+      "subCategoryId": "sub-energy",
+      "name": "Monster",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-hotdog",
+      "categoryId": "cat-food",
+      "subCategoryId": null,
+      "name": "Hot Dog",
+      "description": "All-beef hot dog",
+      "imageId": null,
+      "sortOrder": 10,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-pretzel",
+      "categoryId": "cat-food",
+      "subCategoryId": null,
+      "name": "Pretzel",
+      "description": "Soft baked pretzel",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": [
+        {
+          "id": "opt-pretzel-salt",
+          "name": "Salt",
+          "priceDelta": 0,
+          "archived": false
+        },
+        {
+          "id": "opt-pretzel-cheese",
+          "name": "Cheese",
+          "priceDelta": 0.5,
+          "archived": false
+        },
+        {
+          "id": "opt-pretzel-nosalt",
+          "name": "No Salt",
+          "priceDelta": 0,
+          "archived": false
+        }
+      ]
+    },
+    {
+      "id": "itm-nachos",
+      "categoryId": "cat-food",
+      "subCategoryId": null,
+      "name": "Nachos",
+      "description": "Tortilla chips with warm cheese",
+      "imageId": null,
+      "sortOrder": 30,
+      "archived": false,
+      "options": [
+        {
+          "id": "opt-nachos-cheese",
+          "name": "Cheese",
+          "priceDelta": 0,
+          "archived": false
+        },
+        {
+          "id": "opt-nachos-xcheese",
+          "name": "Extra Cheese",
+          "priceDelta": 0.5,
+          "archived": false
+        },
+        {
+          "id": "opt-nachos-jalapeno",
+          "name": "Jalapeños",
+          "priceDelta": 0,
+          "archived": false
+        }
+      ]
+    },
+    {
+      "id": "itm-chickfila",
+      "categoryId": "cat-food",
+      "subCategoryId": null,
+      "name": "Chick-fil-A Sandwich",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 40,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-sourskittles",
+      "categoryId": "cat-candy",
+      "subCategoryId": null,
+      "name": "Sour Skittles",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 10,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-skittles",
+      "categoryId": "cat-candy",
+      "subCategoryId": null,
+      "name": "Skittles",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-mms",
+      "categoryId": "cat-candy",
+      "subCategoryId": null,
+      "name": "M&M's",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 30,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-reeses",
+      "categoryId": "cat-candy",
+      "subCategoryId": null,
+      "name": "Reese's Cups",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 40,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-doritos",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-chips",
+      "name": "Doritos Nacho Cheese",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 10,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-lays",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-chips",
+      "name": "Lay's Original",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-lays-scno",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-chips",
+      "name": "Lay's Sour Cream & Onion",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 30,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-popcorn",
+      "categoryId": "cat-snacks",
+      "subCategoryId": null,
+      "name": "Popcorn",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-sunflower",
+      "categoryId": "cat-snacks",
+      "subCategoryId": null,
+      "name": "Sunflower Seeds",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 30,
+      "archived": false,
+      "options": []
+    }
+  ]
+}

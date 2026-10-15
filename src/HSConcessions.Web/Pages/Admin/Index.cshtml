@@ -1,0 +1,47 @@
+@page
+@model HSConcessions.Web.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<h1>Stands</h1>
+<div class="cards">
+    @foreach (var c in Model.Cards)
+    {
+        <section class="card stand-card">
+            <h2>
+                @c.Stand.Name
+                @if (c.Stand.State.IsOpen)
+                {
+                    <span class="pill pill-open">Open</span>
+                }
+                else
+                {
+                    <span class="pill">Closed</span>
+                }
+            </h2>
+            <div class="muted small">
+                @if (c.Opening is not null) { <span>Opens @c.Opening</span> }
+                @if (c.Closing is not null) { <span> · Closes @c.Closing</span> }
+                @if (c.Opening is null && c.Closing is null) { <span>No times set</span> }
+                @if (c.Message is not null) { <div>TV: “@c.Message”</div> }
+            </div>
+            <div class="stats">
+                <div class="stat"><b>@c.Selling</b>selling</div>
+                <div class="stat"><b>@c.Low</b>low</div>
+                <div class="stat"><b>@c.SoldOut</b>sold out</div>
+            </div>
+            <div class="card-actions">
+                @if (Model.CanControl(c.Stand.Id))
+                {
+                    <a class="btn card-actions-main" href="/admin/stands/@c.Stand.Id">Manage stand</a>
+                }
+                <a class="btn btn-outline" href="/@c.Stand.Slug" target="_blank" rel="noopener">Phone page ↗</a>
+                <a class="btn btn-outline" href="/display/@c.Stand.Slug" target="_blank" rel="noopener">TV display ↗</a>
+            </div>
+        </section>
+    }
+</div>
+@if (Model.Cards.Count == 0)
+{
+    <p class="muted">No stands are set up yet.</p>
+}

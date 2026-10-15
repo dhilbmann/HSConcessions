@@ -1,0 +1,60 @@
+@page "/admin/stand-setup"
+@model HSConcessions.Web.Pages.Admin.StandSetupModel
+@{
+    ViewData["Title"] = "Stand setup";
+}
+<h1>Stand setup</h1>
+<p class="muted small">Each stand gets a phone page at <code>/slug</code> and a TV page at <code>/display/slug</code>. Slugs are lowercase letters, digits, and dashes.</p>
+
+<form method="post" asp-page-handler="Add" class="card">
+    <h3>Add a stand</h3>
+    <div class="field-row">
+        <div class="field"><label for="sname">Name</label><input id="sname" name="name" type="text" required maxlength="40" placeholder="e.g. Softball"></div>
+        <div class="field"><label for="sslug">Slug</label><input id="sslug" name="slug" type="text" required maxlength="40" pattern="[a-z0-9]+(-[a-z0-9]+)*" placeholder="softball"></div>
+    </div>
+    <button class="btn" type="submit">Add stand</button>
+</form>
+
+@foreach (var s in Model.Stands)
+{
+    <div class="card" style="@(s.Archived ? "opacity:.65" : "")">
+        <form method="post" asp-page-handler="Update" class="field-row">
+            <input type="hidden" name="id" value="@s.Id">
+            <div class="field"><label>Name</label><input name="name" type="text" value="@s.Name" required maxlength="40" @(s.Archived ? "disabled" : "")></div>
+            <div class="field"><label>Slug</label><input name="slug" type="text" value="@s.Slug" required maxlength="40" pattern="[a-z0-9]+(-[a-z0-9]+)*" @(s.Archived ? "disabled" : "")></div>
+            <div class="field">
+                <label>TV layout</label>
+                <select name="layout" @(s.Archived ? "disabled" : "")>
+                    <option value="">Site default (@Model.Settings.Display.Layout)</option>
+                    @foreach (var l in DisplayLayouts.All)
+                    {
+                        <option value="@l" selected="@(l == s.DisplayLayout)">@DisplayLayouts.Label(l)</option>
+                    }
+                </select>
+            </div>
+            @if (!s.Archived)
+            {
+                <div class="field" style="align-self:end"><button class="btn btn-small" type="submit">Save</button></div>
+            }
+        </form>
+        <div class="btn-row">
+            @if (!s.Archived)
+            {
+                <form method="post" asp-page-handler="Move"><input type="hidden" name="id" value="@s.Id"><input type="hidden" name="dir" value="-1"><button class="btn btn-small btn-ghost" aria-label="Move up">▲</button></form>
+                <form method="post" asp-page-handler="Move"><input type="hidden" name="id" value="@s.Id"><input type="hidden" name="dir" value="1"><button class="btn btn-small btn-ghost" aria-label="Move down">▼</button></form>
+                <a class="btn btn-small btn-outline" href="/@s.Slug" target="_blank" rel="noopener">/@s.Slug</a>
+                <a class="btn btn-small btn-outline" href="/display/@s.Slug" target="_blank" rel="noopener">/display/@s.Slug</a>
+                <a class="btn btn-small btn-ghost" href="/display/@s.Slug?layout=rotate" target="_blank" rel="noopener">Preview rotate</a>
+                <a class="btn btn-small btn-ghost" href="/display/@s.Slug?layout=single" target="_blank" rel="noopener">Preview single page</a>
+            }
+            else
+            {
+                <span class="pill">Archived</span>
+            }
+            <form method="post" asp-page-handler="Archive" data-confirm="@(s.Archived ? "Restore" : "Archive") the @s.Name stand?">
+                <input type="hidden" name="id" value="@s.Id"><input type="hidden" name="archived" value="@(s.Archived ? "false" : "true")">
+                <button class="btn btn-small btn-ghost">@(s.Archived ? "Restore" : "Archive")</button>
+            </form>
+        </div>
+    </div>
+}

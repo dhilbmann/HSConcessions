@@ -1,0 +1,143 @@
+@page "/admin/catalog/edit/{type}/{id?}"
+@model HSConcessions.Web.Pages.Admin.Catalog.EditModel
+@{
+    ViewData["Title"] = (Model.IsNew ? "New " : "Edit ") + Model.TypeLabel;
+    var cats = Model.Catalog.Categories.Where(c => !c.Archived).OrderBy(c => c.SortOrder).ToList();
+    var subs = Model.Catalog.SubCategories.Where(s => !s.Archived).OrderBy(s => s.SortOrder).ToList();
+}
+<p><a href="/admin/catalog">← Catalog</a></p>
+<h1>@(Model.IsNew ? "New " + Model.TypeLabel.ToLowerInvariant() : Model.Form.Name)</h1>
+
+<form method="post" class="card">
+    <div class="field">
+        <label for="name">Name</label>
+        <input id="name" name="Form.Name" type="text" value="@Model.Form.Name" required maxlength="80" @(Model.CanEdit ? "" : "disabled")>
+    </div>
+    @if (Model.Type != "category")
+    {
+        <div class="field">
+            <label for="desc">Description</label>
+            <input id="desc" name="Form.Description" type="text" value="@Model.Form.Description" maxlength="300" @(Model.CanEdit ? "" : "disabled")>
+            @if (Model.Type == "subCategory") { <div class="help">E.g. “20 oz bottles”.</div> }
+        </div>
+        <div class="field-row">
+            <div class="field">
+                <label for="cat">Category</label>
+                <select id="cat" name="Form.CategoryId" data-cat-select @(Model.CanEdit ? "" : "disabled")>
+                    @foreach (var c in cats)
+                    {
+                        <option value="@c.Id" selected="@(c.Id == Model.Form.CategoryId)">@c.Name</option>
+                    }
+                </select>
+            </div>
+            @if (Model.Type == "item")
+            {
+                <div class="field">
+                    <label for="sub">Sub-category (optional)</label>
+                    <select id="sub" name="Form.SubCategoryId" data-sub-select @(Model.CanEdit ? "" : "disabled")>
+                        <option value="">— none —</option>
+                        @foreach (var s in subs)
+                        {
+                            <option value="@s.Id" data-cat="@s.CategoryId" selected="@(s.Id == Model.Form.SubCategoryId)">@s.Name</option>
+                        }
+                    </select>
+                </div>
+            }
+        </div>
+    }
+    @if (Model.Type == "item")
+    {
+        <h3>Options</h3>
+        <p class="help">Options don't create separate inventory (e.g. Salt / Cheese / No Salt).@(Model.Features.OptionPricing ? "" : " Price changes are stored but only shown when option pricing is enabled.")</p>
+        var rows = Model.Form.Options.ToList();
+        for (var k = 0; k < 3; k++) { rows.Add(new HSConcessions.Web.Pages.Admin.Catalog.EditModel.OptionInput()); }
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Option</th><th class="num">Price change</th>@if (Model.CanArchive && !Model.IsNew) { <th>Archive</th> }</tr></thead>
+                <tbody>
+                @for (var i = 0; i < rows.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            <input type="hidden" name="Form.Options[@i].Id" value="@rows[i].Id">
+                            <input type="text" name="Form.Options[@i].Name" value="@rows[i].Name" placeholder="@(rows[i].Id is null ? "New option" : "")" maxlength="60" @(Model.CanEdit ? "" : "disabled")>
+                        </td>
+                        <td class="num"><input type="number" step="0.01" min="-100" max="100" name="Form.Options[@i].PriceDelta" value="@rows[i].PriceDelta.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" style="width:110px" @(Model.CanEdit ? "" : "disabled")></td>
+                        @if (Model.CanArchive && !Model.IsNew)
+                        {
+                            <td>@if (rows[i].Id is not null) { <label class="check"><input type="checkbox" name="Form.Options[@i].Archived" value="true"> archive</label> }</td>
+                        }
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+    @if (Model.CanEdit)
+    {
+        <div class="btn-row" style="margin-top:14px">
+            <button class="btn" type="submit">Save</button>
+        </div>
+    }
+</form>
+
+@if (Model.Type == "item" && Model.ArchivedOptions.Count > 0 && Model.CanArchive)
+{
+    <section class="card">
+        <h3>Archived options</h3>
+        @foreach (var o in Model.ArchivedOptions)
+        {
+            <form method="post" asp-page-handler="ArchiveOption" class="btn-row" style="margin-bottom:6px">
+                <span>@o.Name</span>
+                <input type="hidden" name="optionId" value="@o.Id"><input type="hidden" name="archived" value="false">
+                <button class="btn btn-small btn-outline">Restore</button>
+            </form>
+        }
+    </section>
+}
+
+@if (!Model.IsNew && Model.CanPicture)
+{
+    <section class="card">
+        <h3>Picture</h3>
+        @if (Model.ImageId is not null)
+        {
+            <p><img class="thumb" src="@ImageService.ThumbUrl(Model.ImageId)" alt="Current picture"></p>
+        }
+        <form method="post" asp-page-handler="Picture" enctype="multipart/form-data">
+            <div class="field">
+                <label for="pic">@(Model.ImageId is null ? "Upload a picture" : "Replace picture")</label>
+                <input id="pic" type="file" name="picture" accept="image/*" capture="environment" required>
+                <div class="help">JPEG, PNG, or WebP up to 15 MB. It's resized to 800px and converted to WebP; photo metadata is removed.</div>
+            </div>
+            <div class="btn-row">
+                <button class="btn" type="submit">Upload</button>
+            </div>
+        </form>
+        @if (Model.ImageId is not null)
+        {
+            <form method="post" asp-page-handler="RemovePicture" style="margin-top:10px" data-confirm="Remove the picture?">
+                <button class="btn btn-small btn-ghost">Remove picture</button>
+            </form>
+        }
+    </section>
+}
+@section Scripts {
+<script>
+(function () {
+  var cat = document.querySelector('[data-cat-select]');
+  var sub = document.querySelector('[data-sub-select]');
+  if (!cat || !sub) return;
+  function sync() {
+    for (var i = 0; i < sub.options.length; i++) {
+      var o = sub.options[i];
+      var c = o.getAttribute('data-cat');
+      o.hidden = !!c && c !== cat.value;
+      if (o.hidden && o.selected) sub.value = '';
+    }
+  }
+  cat.addEventListener('change', sync);
+  sync();
+})();
+</script>
+}

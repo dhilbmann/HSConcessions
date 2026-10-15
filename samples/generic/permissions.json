@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-14T00:00:00Z",
+  "matrix": {
+    "ViewDashboard": [
+      "Administrator",
+      "Pricing",
+      "Manager"
+    ],
+    "OpenCloseStand": [
+      "Manager"
+    ],
+    "SetStandTimes": [
+      "Manager"
+    ],
+    "SetStandItems": [
+      "Manager"
+    ],
+    "MarkItemStatus": [
+      "Manager"
+    ],
+    "ApplyPresetMenu": [
+      "Pricing"
+    ],
+    "ManageMenus": [
+      "Pricing"
+    ],
+    "ManageCatalog": [
+      "Pricing"
+    ],
+    "UploadPictures": [
+      "Pricing"
+    ],
+    "ArchiveCatalog": [
+      "Pricing"
+    ],
+    "SetPrices": [
+      "Pricing"
+    ],
+    "ManageEvents": [
+      "Pricing"
+    ],
+    "ManageCalendar": [
+      "Administrator"
+    ],
+    "ManageUsers": [
+      "Administrator"
+    ],
+    "ViewAudit": [
+      "Administrator"
+    ],
+    "DownloadLogs": [
+      "Administrator"
+    ],
+    "EditSettings": [
+      "Administrator"
+    ],
+    "ManageBackups": [],
+    "EditPermissionMatrix": []
+  }
+}

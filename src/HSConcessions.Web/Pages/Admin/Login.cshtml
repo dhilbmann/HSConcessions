@@ -1,0 +1,61 @@
+@page
+@model HSConcessions.Web.Pages.Admin.LoginModel
+@{
+    ViewData["Title"] = "Sign in";
+}
+<div class="login-box card">
+    <h1>Volunteer sign in</h1>
+    @if (Model.Error is not null)
+    {
+        <div class="flash flash-error">Sign-in did not complete. Please try again.</div>
+    }
+    @if (Model.SignedOut)
+    {
+        <div class="flash flash-ok">You are signed out.</div>
+    }
+    @foreach (var p in Model.Providers)
+    {
+        <a class="btn" href="/auth/challenge/@p.Key?returnUrl=@Uri.EscapeDataString(Model.ReturnUrl)">Sign in with @p.Value.DisplayName</a>
+    }
+    @if (Model.Providers.Count == 0 && !Model.DevLogin)
+    {
+        <p class="muted">No sign-in providers are configured. Set the Google or Microsoft OAuth client ID and secret (see DEPLOY.md).</p>
+    }
+    @if (Model.DevLogin)
+    {
+        <section class="card" style="text-align:left;margin-top:16px">
+            @if (Model.IsDemo)
+            {
+                <p class="small"><b>Try it out:</b> pick a role below — no account needed. Each role sees only the screens it's allowed to use.</p>
+            }
+            else
+            {
+                <p class="small muted"><b>Development sign-in.</b> Only available in the Development environment.</p>
+            }
+            @foreach (var p in Model.Personas)
+            {
+                <form method="post" action="/admin/dev-login" style="margin-bottom:10px">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="returnUrl" value="@Model.ReturnUrl">
+                    <input type="hidden" name="email" value="@p.Email">
+                    <button class="btn btn-accent" type="submit" style="width:100%;flex-direction:column;align-items:flex-start;text-align:left;min-height:56px;padding:6px 16px">
+                        <span>Sign in as @p.Label</span>
+                        <span class="small" style="font-weight:400;opacity:.85">@p.Email · @(Model.IsSystemAdmin(p.Email) ? "every permission" : string.Join(" + ", p.Roles))</span>
+                    </button>
+                </form>
+            }
+            <details style="margin-top:6px">
+                <summary>Other email</summary>
+                <form method="post" action="/admin/dev-login">
+                    <input type="hidden" name="returnUrl" value="@Model.ReturnUrl">
+                    <div class="field">
+                        <label for="email">Email (must be on the Users list or a System Admin)</label>
+                        <input id="email" name="email" type="email" required autocomplete="email" value="@Model.DevEmailHint">
+                    </div>
+                    @Html.AntiForgeryToken()
+                    <button class="btn btn-outline" type="submit">Dev sign in</button>
+                </form>
+            </details>
+        </section>
+    }
+</div>

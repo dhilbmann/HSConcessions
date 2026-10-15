@@ -1,0 +1,53 @@
+@page "/admin/audit"
+@model HSConcessions.Web.Pages.Admin.AuditModel
+@{
+    ViewData["Title"] = "Audit log";
+}
+<h1>Audit log</h1>
+<form method="get" class="card">
+    <div class="field-row">
+        <div class="field"><label for="from">From</label><input id="from" name="from" type="date" value="@Model.From"></div>
+        <div class="field"><label for="to">To</label><input id="to" name="to" type="date" value="@Model.To"></div>
+        <div class="field"><label for="user">User</label><input id="user" name="user" type="text" value="@Model.UserFilter" placeholder="email contains…"></div>
+        <div class="field">
+            <label for="action">Action</label>
+            <select id="action" name="action">
+                <option value="">Any</option>
+                @foreach (var a in HSConcessions.Web.Pages.Admin.AuditModel.ActionTypes.OrderBy(a => a))
+                {
+                    <option value="@a" selected="@(a == Model.Action)">@a</option>
+                }
+            </select>
+        </div>
+        <div class="field"><label for="entity">Entity</label><input id="entity" name="entity" type="text" value="@Model.Entity" placeholder="type, id, or name"></div>
+    </div>
+    <div class="btn-row">
+        <button class="btn" type="submit">Filter</button>
+        <a class="btn btn-outline" href="/api/admin/audit/export.csv?@Model.Query()">Download CSV</a>
+    </div>
+</form>
+
+<p class="muted small">@Model.Total record(s), newest first. Times are in @Model.Settings.TimeZone.</p>
+<div class="table-wrap">
+    <table>
+        <thead><tr><th>Time</th><th>User</th><th>Action</th><th>Entity</th><th>Details</th><th>IP</th></tr></thead>
+        <tbody>
+        @foreach (var r in Model.Records)
+        {
+            <tr>
+                <td class="nowrap">@Model.LocalTime(r.Timestamp)</td>
+                <td>@r.User</td>
+                <td>@r.Action</td>
+                <td>@r.EntityName <div class="small muted">@r.EntityType · @r.EntityId</div></td>
+                <td class="small" style="max-width:340px;word-break:break-word">@(r.Details?.GetRawText())</td>
+                <td class="small">@r.Ip</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<div class="pager">
+    @if (Model.PageNumber > 1) { <a class="btn btn-small btn-outline" href="?@Model.Query(Model.PageNumber - 1)">← Newer</a> }
+    <span>Page @Model.PageNumber of @Model.Pages</span>
+    @if (Model.PageNumber < Model.Pages) { <a class="btn btn-small btn-outline" href="?@Model.Query(Model.PageNumber + 1)">Older →</a> }
+</div>

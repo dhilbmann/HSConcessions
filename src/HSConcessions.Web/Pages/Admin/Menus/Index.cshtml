@@ -1,0 +1,77 @@
+@page "/admin/menus"
+@model HSConcessions.Web.Pages.Admin.Menus.IndexModel
+@{
+    ViewData["Title"] = "Menus";
+}
+<h1>Preset menus</h1>
+<p class="muted small">A preset is a starting point: applying it sets exactly its items as selling at the stand. Items can still be toggled afterwards.</p>
+
+@if (!Model.ShowArchived)
+{
+    <form method="post" asp-page-handler="Create" class="card">
+        <h3>New menu</h3>
+        <div class="field-row">
+            <div class="field"><label for="mname">Name</label><input id="mname" name="name" type="text" required maxlength="80" placeholder="e.g. Varsity Football"></div>
+            <div class="field">
+                <label for="mstand">Stand</label>
+                <select id="mstand" name="standId">
+                    @foreach (var s in Model.Stands) { <option value="@s.Id">@s.Name</option> }
+                </select>
+            </div>
+        </div>
+        <button class="btn" type="submit">Create and edit items</button>
+    </form>
+}
+
+<div class="btn-row" style="margin:10px 0">
+    @if (Model.ShowArchived)
+    {
+        <a class="btn btn-small btn-outline" href="/admin/menus">← Active menus</a>
+    }
+    else
+    {
+        <a class="btn btn-small btn-ghost" href="/admin/menus?archived=true">Archived menus</a>
+    }
+</div>
+
+@foreach (var group in Model.Menus.GroupBy(m => m.StandId).OrderBy(g => Model.Stands.FindIndex(s => s.Id == g.Key)))
+{
+    <h2>@Model.StandName(group.Key)</h2>
+    @foreach (var m in group.OrderBy(m => m.Name))
+    {
+        <div class="card">
+            <div class="btn-row" style="justify-content:space-between">
+                <div><b>@m.Name</b> <span class="muted small">@m.ItemIds.Count items</span></div>
+                <div class="btn-row">
+                    @if (!m.Archived)
+                    {
+                        <a class="btn btn-small" href="/admin/menus/@m.Id">Edit items</a>
+                        <form method="post" asp-page-handler="Duplicate">
+                            <input type="hidden" name="id" value="@m.Id">
+                            <button class="btn btn-small btn-outline">Duplicate</button>
+                        </form>
+                    }
+                    <form method="post" asp-page-handler="Archive" data-confirm="@(m.Archived ? "Restore" : "Archive") @m.Name?">
+                        <input type="hidden" name="id" value="@m.Id"><input type="hidden" name="archived" value="@(m.Archived ? "false" : "true")">
+                        <button class="btn btn-small btn-ghost">@(m.Archived ? "Restore" : "Archive")</button>
+                    </form>
+                </div>
+            </div>
+            @if (!m.Archived)
+            {
+                <details style="margin-top:6px">
+                    <summary>Rename</summary>
+                    <form method="post" asp-page-handler="Rename" class="btn-row">
+                        <input type="hidden" name="id" value="@m.Id">
+                        <input type="text" name="name" value="@m.Name" required maxlength="80" style="flex:1 1 200px">
+                        <button class="btn btn-small">Save</button>
+                    </form>
+                </details>
+            }
+        </div>
+    }
+}
+@if (Model.Menus.Count == 0)
+{
+    <p class="muted">No @(Model.ShowArchived ? "archived" : "") menus.</p>
+}

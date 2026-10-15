@@ -1,0 +1,14 @@
+@model HSConcessions.Web.Pages.CatalogItemRowModel
+<div class="tree-item" id="e-@Model.Item.Id">
+    @if (Model.Item.ImageId is not null)
+    {
+        <img src="@ImageService.ThumbUrl(Model.Item.ImageId)" alt="" loading="lazy">
+    }
+    <div class="grow">
+        <b>@Model.Item.Name</b>
+        @if (!string.IsNullOrEmpty(Model.Item.Description)) { <div class="small muted">@Model.Item.Description</div> }
+        @{ var opts = Model.Item.Options.Where(o => !o.Archived).Select(o => o.Name).ToList(); }
+        @if (opts.Count > 0) { <div class="small muted">Options: @string.Join(" · ", opts)</div> }
+    </div>
+    <partial name="_CatalogActions" model="@(new CatalogActionsModel("item", Model.Item.Id, Model.Item.Name, Model.CanEdit, Model.CanArchive))" />
+</div>

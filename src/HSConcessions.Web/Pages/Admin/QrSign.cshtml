@@ -1,0 +1,35 @@
+@page "/admin/qr/sign/{target}"
+@model HSConcessions.Web.Pages.Admin.QrSignModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@Model.Target.Label — sign</title>
+    <link rel="stylesheet" href="/theme.css">
+    <style>
+        @@page { size: letter portrait; margin: 0.5in; }
+        html, body { margin: 0; background: #fff; color: #000; font-family: var(--font-body); }
+        .sign { width: 7.5in; min-height: 10in; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .35in; text-align: center; }
+        .logo { max-width: 3.2in; max-height: 2in; }
+        .title { font-family: var(--font-display); font-size: 40pt; margin: 0; color: var(--color-primary); }
+        .caption { font-family: var(--font-display); font-size: 54pt; margin: 0; text-transform: uppercase; letter-spacing: .02em; }
+        .qr svg { width: 5in; height: 5in; }
+        .url { font-size: 20pt; word-break: break-all; }
+        .print { position: fixed; top: 12px; right: 12px; padding: 10px 18px; font-size: 16px; }
+        @@media print { .print { display: none; } }
+    </style>
+</head>
+<body>
+<button class="print" onclick="window.print()">Print</button>
+<div class="sign">
+    <img class="logo" src="@Model.Site.LogoUrl" alt="">
+    <h1 class="title">@Model.Site.Title</h1>
+    <p class="caption">Scan for the menu</p>
+    <div class="qr">@Html.Raw(Model.Svg)</div>
+    <div class="url">@Model.Target.Url</div>
+</div>
+</body>
+</html>

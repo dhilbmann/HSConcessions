@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-14T00:00:00Z",
+  "prices": [
+    {
+      "level": "category",
+      "targetId": "cat-beverages",
+      "standId": null,
+      "amount": 2.0
+    },
+    {
+      "level": "item",
+      "targetId": "itm-water",
+      "standId": null,
+      "amount": 1.5
+    },
+    {
+      "level": "subCategory",
+      "targetId": "sub-soda",
+      "standId": null,
+      "amount": 2.5
+    },
+    {
+      "level": "subCategory",
+      "targetId": "sub-soda",
+      "standId": "baseball",
+      "amount": 3.0
+    },
+    {
+      "level": "subCategory",
+      "targetId": "sub-gatorade",
+      "standId": null,
+      "amount": 3.0
+    },
+    {
+      "level": "subCategory",
+      "targetId": "sub-energy",
+      "standId": null,
+      "amount": 4.0
+    },
+    {
+      "level": "item",
+      "targetId": "itm-hotdog",
+      "standId": null,
+      "amount": 3.0
+    },
+    {
+      "level": "item",
+      "targetId": "itm-pretzel",
+      "standId": null,
+      "amount": 3.0
+    },
+    {
+      "level": "item",
+      "targetId": "itm-nachos",
+      "standId": null,
+      "amount": 4.0
+    },
+    {
+      "level": "item",
+      "targetId": "itm-chickfila",
+      "standId": null,
+      "amount": 7.0
+    },
+    {
+      "level": "category",
+      "targetId": "cat-candy",
+      "standId": null,
+      "amount": 2.0
+    },
+    {
+      "level": "category",
+      "targetId": "cat-snacks",
+      "standId": null,
+      "amount": 2.0
+    },
+    {
+      "level": "subCategory",
+      "targetId": "sub-chips",
+      "standId": null,
+      "amount": 1.5
+    }
+  ]
+}

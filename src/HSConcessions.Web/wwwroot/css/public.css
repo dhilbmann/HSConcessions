@@ -1,0 +1,97 @@
+/* Public phone menu. Colors and fonts come only from /theme.css variables. Scoped to .pub-root so the branding preview can reuse it. */
+.pub-root, .pub-root *, .pub-root *::before, .pub-root *::after { box-sizing: border-box; }
+body.pub-root { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
+.pub-root {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.4;
+  background: var(--page-bg);
+  color: var(--page-text);
+  -webkit-text-size-adjust: 100%;
+}
+.pub-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; padding-top: max(12px, env(safe-area-inset-top));
+  background: var(--color-primary); color: var(--color-on-primary);
+}
+.pub-logo { height: 56px; width: auto; max-width: 96px; object-fit: contain; flex: none; }
+.pub-title { margin: 0; font-family: var(--font-display); font-size: 1.6rem; line-height: 1.1; letter-spacing: .01em; }
+.pub-tagline { font-size: .9rem; opacity: .9; }
+.pub-tagline:empty { display: none; }
+
+.pub-tabs {
+  display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  padding: 8px 12px; background: var(--color-primary-dark); position: sticky; top: 0; z-index: 10;
+}
+.pub-tabs::-webkit-scrollbar { display: none; }
+.pub-tab {
+  flex: none; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 2px solid transparent;
+  background: transparent; color: var(--color-on-primary);
+  font: inherit; font-family: var(--font-display); font-size: 1.1rem; cursor: pointer; white-space: nowrap;
+}
+.pub-tab[aria-selected="true"] { background: var(--color-accent); color: var(--color-on-accent); }
+
+.pub-main { flex: 1; width: 100%; max-width: 760px; margin: 0 auto; padding: 12px 12px 32px; }
+.pub-loading { text-align: center; color: var(--page-muted); padding: 40px 0; }
+
+.pub-banner {
+  margin: 4px 0 12px; padding: 12px 14px; border-radius: 12px;
+  background: var(--color-accent); color: var(--color-on-accent); font-weight: 700; text-align: center;
+}
+.pub-banner small { display: block; font-weight: 400; opacity: .9; }
+.pub-open-until { text-align: center; color: var(--page-muted); margin: -4px 0 10px; font-size: .95rem; }
+
+.pub-notices { list-style: none; padding: 0; margin: 0 0 12px; }
+.pub-notices li {
+  padding: 10px 12px; margin-bottom: 8px; border-radius: 10px;
+  background: var(--page-surface); border-left: 6px solid var(--color-accent); font-weight: 600;
+}
+
+.pub-message { text-align: center; padding: 24px 8px; }
+.pub-message h2 { font-family: var(--font-display); font-size: 1.5rem; margin: 0 0 8px; }
+.pub-button {
+  display: inline-block; padding: 12px 20px; border-radius: 10px; background: var(--color-primary); color: var(--color-on-primary);
+  text-decoration: none; font-weight: 700;
+}
+
+.pub-games { background: var(--page-surface); border: 1px solid var(--page-border); border-radius: 14px; padding: 4px 14px; margin-top: 8px; }
+.pub-games h3 { font-family: var(--font-display); margin: 12px 0 6px; font-size: 1.2rem; }
+.pub-game { display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid var(--page-border); }
+.pub-game-date { flex: none; width: 84px; font-weight: 700; color: var(--color-primary); }
+@media (prefers-color-scheme: dark) { .pub-game-date { color: var(--color-accent); } }
+.pub-game-date small { display: block; font-weight: 400; color: var(--page-muted); }
+.pub-game-title { font-weight: 600; }
+.pub-game-meta { font-size: .85rem; color: var(--page-muted); }
+
+.pub-cat { margin-top: 16px; }
+.pub-cat-head {
+  display: flex; align-items: center; gap: 10px;
+  margin: 0 0 8px; padding: 8px 12px; border-radius: 10px;
+  background: var(--color-primary); color: var(--color-on-primary);
+}
+.pub-cat-head h2 { margin: 0; font-family: var(--font-display); font-size: 1.35rem; letter-spacing: .02em; }
+.pub-cat-icon { width: 32px; height: 32px; border-radius: 6px; object-fit: cover; }
+
+.pub-card {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px; margin-bottom: 8px; border-radius: 12px;
+  background: var(--page-surface); border: 1px solid var(--page-border);
+}
+.pub-thumb { width: 72px; height: 72px; flex: none; border-radius: 10px; object-fit: cover; background: var(--page-bg); }
+.pub-body { flex: 1; min-width: 0; }
+.pub-name-row { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.pub-name { font-weight: 700; font-size: 1.08rem; }
+.pub-price { font-family: var(--font-display); font-size: 1.25rem; color: var(--page-price); white-space: nowrap; }
+.pub-desc { color: var(--page-muted); font-size: .92rem; margin-top: 2px; }
+.pub-options { font-size: .88rem; margin-top: 4px; }
+.pub-options b { font-weight: 600; }
+.pub-varieties { list-style: none; margin: 8px 0 0; padding: 0; }
+.pub-varieties li { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 6px 0; border-top: 1px dashed var(--page-border); }
+.pub-varieties .pub-price { font-size: 1.05rem; }
+.pub-badge {
+  display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 999px; vertical-align: middle;
+  background: var(--color-low); color: var(--color-on-low); font-size: .75rem; font-weight: 800; white-space: nowrap;
+}
+
+.pub-footer { text-align: center; padding: 18px 16px calc(18px + env(safe-area-inset-bottom)); color: var(--page-muted); font-size: .9rem; }
+.pub-admin-link { display: block; margin-top: 6px; color: var(--page-muted); font-size: .8rem; }

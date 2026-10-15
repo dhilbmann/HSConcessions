@@ -1,0 +1,37 @@
+@page "/admin/events"
+@model HSConcessions.Web.Pages.Admin.EventsModel
+@{
+    ViewData["Title"] = "Events";
+}
+<h1>Events</h1>
+<p class="muted small">“Prepare stand” applies the event's menu and sets the stand's opening time. Stands still open only when a Manager taps Open.</p>
+<form method="post" asp-page-handler="Save" class="card">
+    <h3>New event</h3>
+    <div class="field-row">
+        <div class="field"><label for="ename">Name</label><input id="ename" name="name" type="text" required maxlength="80"></div>
+        <div class="field"><label for="estart">Starts</label><input id="estart" name="startsAt" type="datetime-local" required></div>
+        <div class="field">
+            <label for="emenu">Menu (optional)</label>
+            <select id="emenu" name="menuId"><option value="">— none —</option>
+                @foreach (var m in Model.Menus) { <option value="@m.Id">@m.Name</option> }
+            </select>
+        </div>
+    </div>
+    <div class="btn-row">
+        @foreach (var s in Model.Stands) { <label class="check"><input type="checkbox" name="standIds" value="@s.Id"> @s.Name</label> }
+    </div>
+    <div class="field"><label for="enotes">Notes</label><input id="enotes" name="notes" type="text" maxlength="300"></div>
+    <button class="btn" type="submit">Add event</button>
+</form>
+@foreach (var e in Model.Events)
+{
+    <div class="card">
+        <b>@e.Name</b> <span class="muted">@Model.When(e.StartsAt)</span>
+        <div class="small muted">Stands: @string.Join(", ", e.StandIds.Select(id => Model.Stands.FirstOrDefault(s => s.Id == id)?.Name ?? id)) · Menu: @(Model.Menus.FirstOrDefault(m => m.Id == e.MenuId)?.Name ?? "none")</div>
+        @if (!string.IsNullOrEmpty(e.Notes)) { <p class="small">@e.Notes</p> }
+        <div class="btn-row">
+            <form method="post" asp-page-handler="Prepare" data-confirm="Prepare the stand(s) for @e.Name?"><input type="hidden" name="id" value="@e.Id"><button class="btn btn-small">Prepare stand for event</button></form>
+            <form method="post" asp-page-handler="Delete" data-confirm="Remove @e.Name?"><input type="hidden" name="id" value="@e.Id"><button class="btn btn-small btn-ghost">Remove</button></form>
+        </div>
+    </div>
+}

@@ -1,0 +1,25 @@
+# Caddy reverse proxy with automatic HTTPS (Let's Encrypt).
+# Replace the domain with your instance's domain. One block per instance if you host several.
+
+wildcatsnacks.com, www.wildcatsnacks.com {
+	encode zstd gzip
+
+	# The app sets its own Cache-Control headers (no-store for menu data, immutable for images).
+	reverse_proxy 127.0.0.1:5080
+
+	# HSTS is sent by the app itself.
+	header -Server
+
+	log {
+		output file /var/log/caddy/wildcatsnacks.access.log {
+			roll_size 10mb
+			roll_keep 10
+		}
+	}
+}
+
+# Second instance example (another school on the same server):
+# otherschool.org {
+#	encode zstd gzip
+#	reverse_proxy 127.0.0.1:5081
+# }

@@ -1,0 +1,204 @@
+@page "/admin/branding"
+@model HSConcessions.Web.Pages.Admin.BrandingModel
+@{
+    ViewData["Title"] = "Branding";
+    var c = Model.Form.Colors;
+    var s = Model.Settings;
+    var t = Model.Form.Text;
+}
+@section Head {
+    <link rel="stylesheet" href="/css/fonts-all.css">
+    <link rel="stylesheet" href="/css/public.css?v=@HSConcessions.Web.Api.AppVersion.Value">
+    <link rel="stylesheet" href="/css/display.css?v=@HSConcessions.Web.Api.AppVersion.Value">
+}
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="stamp-grunge" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="2" seed="3" result="speckle"/>
+        <feColorMatrix in="speckle" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.3" result="mask"/>
+        <feComposite in="displaced" in2="mask" operator="in"/>
+    </filter>
+</svg>
+<h1>Branding</h1>
+<div class="brand-layout">
+    <div>
+        <form method="post" id="brand-form" class="card">
+            <h2 style="margin-top:0">Colors</h2>
+            @foreach (var (key, label, value) in new[] { ("Primary", "Primary", c.Primary), ("Accent", "Accent", c.Accent), ("Dark", "Dark", c.Dark), ("Light", "Light", c.Light), ("Stamp", "Sold Out stamp", c.Stamp) })
+            {
+                <div class="field">
+                    <label for="c-@key">@label</label>
+                    <div class="color-input">
+                        <input type="color" value="@value" data-color-picker="@key" aria-label="@label color picker">
+                        <input type="text" id="c-@key" name="Form.Colors.@key" value="@value" pattern="#[0-9A-Fa-f]{6}" required data-color="@key" maxlength="7">
+                    </div>
+                </div>
+            }
+            <div class="field">
+                <label for="c-LowBadge">Low badge</label>
+                <label class="check"><input type="checkbox" name="Form.LowSameAsAccent" value="true" data-low-same @(Model.Form.LowSameAsAccent ? "checked" : "")> Same as accent</label>
+                <div class="color-input">
+                    <input type="color" value="@(c.LowBadge ?? c.Accent)" data-color-picker="LowBadge" aria-label="Low badge color picker">
+                    <input type="text" id="c-LowBadge" name="Form.Colors.LowBadge" value="@(c.LowBadge ?? c.Accent)" pattern="#[0-9A-Fa-f]{6}" data-color="LowBadge" maxlength="7">
+                </div>
+            </div>
+            <input type="hidden" name="Form.LowSameAsAccent" value="false">
+
+            <h3>Contrast check (WCAG AA 4.5:1)</h3>
+            <div data-contrast></div>
+
+            <h2>Fonts</h2>
+            <div class="field-row">
+                <div class="field">
+                    <label for="f-display">Display (headings, prices)</label>
+                    <select id="f-display" name="Form.Fonts.Display" data-font="display">
+                        @foreach (var f in BundledFonts.Display) { <option value="@f.Family" selected="@(f.Family == Model.Form.Fonts.Display)" data-fallback="@f.Fallback">@f.Family</option> }
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="f-body">Body</label>
+                    <select id="f-body" name="Form.Fonts.Body" data-font="body">
+                        @foreach (var f in BundledFonts.Body) { <option value="@f.Family" selected="@(f.Family == Model.Form.Fonts.Body)" data-fallback="@f.Fallback">@f.Family</option> }
+                    </select>
+                </div>
+            </div>
+
+            <h2>Display text</h2>
+            <p class="help">Tokens: <code>{time}</code> <code>{stand}</code> <code>{school}</code> <code>{mascot}</code> <code>{site}</code></p>
+            <div class="field-row">
+                <div class="field"><label for="t1">Closed</label><input id="t1" name="Form.Text.Closed" type="text" maxlength="120" value="@t.Closed" data-text="closed"></div>
+                <div class="field"><label for="t2">Opening at</label><input id="t2" name="Form.Text.OpeningAt" type="text" maxlength="120" value="@t.OpeningAt"></div>
+                <div class="field"><label for="t3">Opening soon</label><input id="t3" name="Form.Text.OpeningSoon" type="text" maxlength="120" value="@t.OpeningSoon"></div>
+            </div>
+            <div class="field-row">
+                <div class="field"><label for="t4">Sold-out stamp</label><input id="t4" name="Form.Text.SoldOutStamp" type="text" maxlength="20" value="@t.SoldOutStamp" data-text="stamp"></div>
+                <div class="field"><label for="t5">Low badge</label><input id="t5" name="Form.Text.LowBadge" type="text" maxlength="24" value="@t.LowBadge" data-text="low"></div>
+            </div>
+            <div class="field"><label for="t6">Single-stand banner</label><input id="t6" name="Form.Text.SingleStandBanner" type="text" maxlength="160" value="@t.SingleStandBanner" data-text="banner"></div>
+            <div class="field"><label for="t7">No stands open</label><input id="t7" name="Form.Text.NoStandsOpen" type="text" maxlength="160" value="@t.NoStandsOpen"></div>
+            <div class="field"><label for="t8">Footer</label><input id="t8" name="Form.Text.Footer" type="text" maxlength="200" value="@t.Footer" data-text="footer"></div>
+
+            <div class="sticky-actions btn-row">
+                <button class="btn" type="submit">Save branding</button>
+            </div>
+        </form>
+
+        <section class="card">
+            <h2 style="margin-top:0">Images</h2>
+            @foreach (var (kind, label, current, help) in new[]
+            {
+                ("logo", "Logo", s.Images.Logo, "PNG, SVG, or WebP. SVGs are sanitized. Favicons and app icons are generated from it."),
+                ("mascot", "Mascot (TV closed screen)", s.Images.Mascot, "Optional. Shown on the TV when closed; falls back to the logo."),
+                ("tvBackground", "TV background", s.Images.TvBackground, "Optional full-screen background image."),
+                ("favicon", "Favicon (override)", s.Images.FaviconUploaded ? s.Images.Favicon + "-192.png" : null, "Optional. Otherwise generated from the logo."),
+            })
+            {
+                <div class="field" style="border-top:1px solid var(--page-border);padding-top:10px">
+                    <label>@label</label>
+                    @if (current is not null)
+                    {
+                        <img src="/images/@current" alt="" style="max-height:80px;max-width:200px;background:var(--color-dark);padding:6px;border-radius:8px">
+                    }
+                    else if (kind == "logo")
+                    {
+                        <img src="@PublicStateService.PlaceholderLogo" alt="" style="max-height:80px;background:var(--color-dark);padding:6px;border-radius:8px"> <span class="small muted">placeholder</span>
+                    }
+                    <div class="help">@help</div>
+                    <form method="post" asp-page-handler="Upload" enctype="multipart/form-data" class="btn-row">
+                        <input type="hidden" name="kind" value="@kind">
+                        <input type="file" name="file" accept="@(kind is "logo" or "favicon" ? "image/png,image/svg+xml,image/webp" : "image/*")" required style="flex:1 1 200px">
+                        <button class="btn btn-small">Upload</button>
+                    </form>
+                    @if (current is not null)
+                    {
+                        <form method="post" asp-page-handler="Remove" style="margin-top:6px" data-confirm="Remove the @label.ToLowerInvariant()?">
+                            <input type="hidden" name="kind" value="@kind">
+                            <button class="btn btn-small btn-ghost">Remove</button>
+                        </form>
+                    }
+                </div>
+            }
+        </section>
+
+        <section class="card">
+            <h2 style="margin-top:0">Share or reset</h2>
+            <div class="btn-row">
+                <a class="btn btn-outline" href="/admin/branding?handler=Export">Export branding JSON</a>
+                <form method="post" asp-page-handler="Reset" data-confirm="Reset colors, fonts, and text to the defaults? Uploaded images are kept.">
+                    <button class="btn btn-ghost">Reset to defaults</button>
+                </form>
+            </div>
+            <form method="post" asp-page-handler="Import" enctype="multipart/form-data" class="btn-row" style="margin-top:12px">
+                <input type="file" name="file" accept="application/json,.json" required style="flex:1 1 200px">
+                <button class="btn btn-small btn-outline" data-confirm="Replace the current branding with the imported file?">Import</button>
+            </form>
+        </section>
+    </div>
+
+    <div>
+        <div style="position:sticky;top:64px">
+            <h2 style="margin-top:0">Live preview <span class="small muted">(unsaved)</span></h2>
+            <p class="small muted">Phone</p>
+            <div class="pub-root" data-preview style="max-width:380px;border-radius:18px;overflow:hidden;border:1px solid var(--page-border)">
+                <header class="pub-header">
+                    <img class="pub-logo" src="@Model.Site.LogoUrl" alt="">
+                    <div class="pub-head-text"><h1 class="pub-title">@s.SiteTitle</h1></div>
+                </header>
+                <div style="padding:10px">
+                    <div class="pub-banner" data-pv="banner"></div>
+                    <section class="pub-cat">
+                        <div class="pub-cat-head"><h2>Beverages</h2></div>
+                        <article class="pub-card">
+                            <div class="pub-body">
+                                <div class="pub-name-row"><span class="pub-name">Soda</span><span class="pub-price">$2.50</span></div>
+                                <div class="pub-desc">20 oz bottles</div>
+                                <ul class="pub-varieties">
+                                    <li><span>Cola <span class="pub-badge" data-pv="low"></span></span></li>
+                                    <li><span>Lemon-Lime</span></li>
+                                </ul>
+                            </div>
+                        </article>
+                        <article class="pub-card">
+                            <div class="pub-body">
+                                <div class="pub-name-row"><span class="pub-name">Pretzel</span><span class="pub-price">$3.00</span></div>
+                                <div class="pub-options"><b>Options:</b> Salt · Cheese · No Salt</div>
+                            </div>
+                        </article>
+                    </section>
+                    <div class="pub-footer" data-pv="footer"></div>
+                </div>
+            </div>
+
+            <p class="small muted" style="margin-top:16px">TV — menu</p>
+            <div class="tv-preview" data-tv-frame style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:10px">
+                <div class="tv-root" data-preview data-tv-inner style="position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0">
+                    <div class="tv-screen" style="--cols:2;--rows:2;--s:1;--name:72px;--price:84px;--img:200px">
+                        <header class="tv-cat-header"><h1 class="tv-cat-name">Food</h1></header>
+                        <div class="tv-grid">
+                            <div class="tv-item"><div class="tv-text"><div class="tv-name-wrap"><div class="tv-name">Hot Dog</div><div class="tv-stamp" data-pv="stamp"></div></div><div class="tv-badge" data-pv="low"></div></div><div class="tv-price">$3.00</div></div>
+                            <div class="tv-item is-low"><div class="tv-text"><div class="tv-name-wrap"><div class="tv-name">Nachos</div><div class="tv-stamp" data-pv="stamp"></div></div><div class="tv-desc">Tortilla chips with warm cheese</div><div class="tv-badge" data-pv="low"></div></div><div class="tv-price">$4.00</div></div>
+                            <div class="tv-item is-sold"><div class="tv-text"><div class="tv-name-wrap"><div class="tv-name">Pretzel</div><div class="tv-stamp" data-pv="stamp"></div></div><div class="tv-badge" data-pv="low"></div></div><div class="tv-price">$3.00</div></div>
+                            <div class="tv-item"><div class="tv-text"><div class="tv-name-wrap"><div class="tv-name">Popcorn</div><div class="tv-stamp" data-pv="stamp"></div></div><div class="tv-badge" data-pv="low"></div></div><div class="tv-price">$2.00</div></div>
+                        </div>
+                        <footer class="tv-footer"><span class="tv-stand">Stand</span><span class="tv-dots"><span class="tv-dot on"></span><span class="tv-dot"></span><span class="tv-dot"></span></span></footer>
+                    </div>
+                </div>
+            </div>
+
+            <p class="small muted" style="margin-top:16px">TV — closed</p>
+            <div class="tv-preview" data-tv-frame style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:10px">
+                <div class="tv-root" data-preview data-tv-inner style="position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0">
+                    <div class="tv-closed">
+                        <img class="tv-closed-img" src="@Model.Site.ClosedImageUrl" alt="">
+                        <div class="tv-closed-msg" data-pv="closed"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>window.HSC_BRANDING = { school: @Json.Serialize(s.SchoolName), mascot: @Json.Serialize(s.MascotName), site: @Json.Serialize(s.SiteTitle) };</script>
+    <script src="/js/branding.js?v=@HSConcessions.Web.Api.AppVersion.Value"></script>
+}

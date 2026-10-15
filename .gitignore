@@ -1,0 +1,26 @@
+bin/
+obj/
+*.user
+.vs/
+.vscode/
+.idea/
+TestResults/
+publish/
+
+# Runtime data, logs, and backups (never committed)
+src/HSConcessions.Web/data/
+src/HSConcessions.Web/logs/
+src/HSConcessions.Web/backups/
+data/
+logs/
+backups/
+
+# Secrets
+.env
+appsettings.Production.json
+appsettings.*.local.json
+
+# Source documents and local assistant notes (not part of the app)
+*.docx
+CLAUDE.md
+.claude/

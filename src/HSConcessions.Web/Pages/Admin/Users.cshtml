@@ -1,0 +1,91 @@
+@page "/admin/users"
+@model HSConcessions.Web.Pages.Admin.UsersModel
+@{
+    ViewData["Title"] = "Users";
+    var assignable = Model.IsSystemAdmin ? Roles.All : new[] { Roles.Pricing, Roles.Manager };
+}
+<h1>Users</h1>
+<p class="muted small">Only people on this list (or System Admins) can sign in. Removing a user deactivates them; the record is kept for audit history.</p>
+
+<form method="post" asp-page-handler="Add" class="card">
+    <h3>Add a user</h3>
+    <div class="field-row">
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="off"></div>
+        <div class="field"><label for="dn">Display name (optional)</label><input id="dn" name="displayName" type="text" maxlength="80"></div>
+    </div>
+    <div class="btn-row">
+        @foreach (var r in assignable)
+        {
+            <label class="check"><input type="checkbox" name="roles" value="@r" @(r == Roles.Manager ? "checked" : "")> @r</label>
+        }
+    </div>
+    <button class="btn" type="submit">Add user</button>
+</form>
+
+<h2>System Admins</h2>
+<p class="muted small">Set in appsettings (<code>Auth:SystemAdmins</code>); they always have every permission.</p>
+<ul>
+    @foreach (var a in Model.SystemAdmins) { <li>@a</li> }
+</ul>
+
+<h2>Allowlisted users</h2>
+@foreach (var u in Model.Users)
+{
+    var editable = Model.CanEditUser(u);
+    <div class="card" style="@(u.Active ? "" : "opacity:.65")">
+        <div class="btn-row" style="justify-content:space-between">
+            <div>
+                <b>@u.Email</b> @if (!string.IsNullOrEmpty(u.DisplayName)) { <span class="muted">(@u.DisplayName)</span> }
+                @if (!u.Active) { <span class="pill">Inactive</span> }
+                <div class="small muted">Last login: @Model.LastLogin(u)</div>
+            </div>
+            @if (editable)
+            {
+                <form method="post" asp-page-handler="Active" data-confirm="@(u.Active ? "Deactivate" : "Reactivate") @u.Email?">
+                    <input type="hidden" name="email" value="@u.Email"><input type="hidden" name="active" value="@(u.Active ? "false" : "true")">
+                    <button class="btn btn-small @(u.Active ? "btn-ghost" : "btn-outline")">@(u.Active ? "Deactivate" : "Reactivate")</button>
+                </form>
+            }
+        </div>
+        @if (editable)
+        {
+            <form method="post" asp-page-handler="Roles" style="margin-top:8px">
+                <input type="hidden" name="email" value="@u.Email">
+                <div class="btn-row">
+                    @foreach (var r in assignable)
+                    {
+                        var has = u.Roles.FirstOrDefault(x => x.Role == r);
+                        <label class="check"><input type="checkbox" name="roles" value="@r" @(has is not null ? "checked" : "")> @r</label>
+                    }
+                    @if (!Model.IsSystemAdmin && u.Roles.Any(x => x.Role == Roles.Administrator))
+                    {
+                        <input type="hidden" name="roles" value="@Roles.Administrator">
+                    }
+                </div>
+                @if (Model.Features.StandScopedRoles)
+                {
+                    @foreach (var r in new[] { Roles.Manager, Roles.Pricing })
+                    {
+                        var has = u.Roles.FirstOrDefault(x => x.Role == r);
+                        <div class="small" style="margin:6px 0">
+                            <b>@r stands</b> (none checked = all):
+                            @foreach (var s in Model.Stands)
+                            {
+                                <label class="check" style="display:inline-flex;margin-right:10px"><input type="checkbox" name="stands-@r" value="@s.Id" @(has?.StandIds?.Contains(s.Id) == true ? "checked" : "")> @s.Name</label>
+                            }
+                        </div>
+                    }
+                }
+                <button class="btn btn-small" type="submit">Save roles</button>
+            </form>
+        }
+        else
+        {
+            <p class="small">Roles: @string.Join(", ", u.Roles.Select(r => r.Role)) <span class="muted">— only a System Admin can change an Administrator.</span></p>
+        }
+    </div>
+}
+@if (Model.Users.Count == 0)
+{
+    <p class="muted">No users yet.</p>
+}

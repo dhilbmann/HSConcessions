@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+**/data/
+**/logs/
+**/backups/
+**/.env
+**/appsettings.Production.json
+.git/
+.vs/
+.vscode/
+publish/
+TestResults/

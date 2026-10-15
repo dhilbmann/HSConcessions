@@ -1,0 +1,33 @@
+@page "/admin/logs"
+@model HSConcessions.Web.Pages.Admin.LogsModel
+@{
+    ViewData["Title"] = "Logs";
+}
+<h1>Logs</h1>
+<p class="muted small">Application logs (<code>*-app-*.log</code>) and audit logs (<code>*-audit-*.jsonl</code>) are kept for 90 days.</p>
+
+<form method="get" action="/api/admin/logs/zip" class="card">
+    <h3>Download a date range as ZIP</h3>
+    <div class="field-row">
+        <div class="field"><label for="from">From</label><input id="from" name="from" type="date" required></div>
+        <div class="field"><label for="to">To</label><input id="to" name="to" type="date" required></div>
+    </div>
+    <button class="btn" type="submit">Download ZIP</button>
+</form>
+
+<div class="table-wrap">
+    <table>
+        <thead><tr><th>File</th><th class="num">Size</th><th>Modified (UTC)</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var f in Model.Files)
+        {
+            <tr>
+                <td>@f.Name</td>
+                <td class="num">@HSConcessions.Web.Pages.Admin.LogsModel.Size(f.Length)</td>
+                <td class="nowrap">@f.LastWriteTimeUtc.ToString("yyyy-MM-dd HH:mm")</td>
+                <td><a class="btn btn-small btn-outline" href="/api/admin/logs/@Uri.EscapeDataString(f.Name)">Download</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

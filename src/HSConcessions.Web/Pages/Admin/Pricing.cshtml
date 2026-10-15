@@ -1,0 +1,107 @@
+@page "/admin/pricing"
+@model HSConcessions.Web.Pages.Admin.PricingModel
+@{
+    ViewData["Title"] = "Pricing";
+    var inv = System.Globalization.CultureInfo.InvariantCulture;
+}
+<h1>Pricing</h1>
+<p class="muted small">
+    Set a price on a category, sub-category, or item — as a default or for one stand. Bold values are set at that level; grey values are inherited
+    (the caption shows where from). Clear a box to remove that override. Resolution: item@@stand → item default → sub-category@@stand →
+    sub-category default → category@@stand → category default.
+</p>
+<div id="pricing">
+    @if (Model.MissingCount > 0)
+    {
+        <div class="flash flash-error">@Model.MissingCount item(s) have no price at one or more stands.</div>
+    }
+    <div class="table-wrap price-grid">
+        <table>
+            <thead>
+            <tr>
+                <th>Entry</th>
+                <th>Default</th>
+                @foreach (var s in Model.Stands)
+                {
+                    <th>@s.Name</th>
+                }
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var row in Model.Rows)
+            {
+                var cls = row.Kind == "category" ? "group-row" : row.Kind == "subCategory" ? "sub-row" : "";
+                <tr class="@cls">
+                    <td style="@(row.Kind == "subItem" ? "padding-left:26px" : "")">@row.Name</td>
+                    @foreach (var c in row.Cells)
+                    {
+                        var missing = row.Kind is "item" or "subItem" && !c.Effective.HasPrice && c.StandId is not null;
+                        <td class="price-cell">
+                            <input type="number" inputmode="decimal" step="0.01" min="0"
+                                   class="@(c.Explicit is not null ? "explicit" : "inherited")"
+                                   value="@(c.Explicit?.ToString("0.00", inv))"
+                                   placeholder="@(c.Explicit is null && c.Effective.Amount is { } a ? a.ToString("0.00", inv) : "")"
+                                   data-level="@c.Level" data-target="@c.TargetId" data-stand="@(c.StandId ?? "")"
+                                   aria-label="@row.Name @(c.StandId ?? "default") price">
+                            @if (c.Explicit is null)
+                            {
+                                if (c.Effective.HasPrice)
+                                {
+                                    <span class="src">@c.Effective.SourceName</span>
+                                }
+                                else if (missing)
+                                {
+                                    <span class="src price-missing">No price</span>
+                                }
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts {
+<script>
+(function () {
+  var root = document.getElementById('pricing');
+  // Save shortly after the last keystroke or spinner click, so stepping through values isn't saved (and audited) each time.
+  var timers = {};
+  function key(i) { return [i.getAttribute('data-level'), i.getAttribute('data-target'), i.getAttribute('data-stand')].join('|'); }
+  root.addEventListener('input', function (e) {
+    var input = e.target;
+    if (!input.matches('input[data-level]')) return;
+    clearTimeout(timers[key(input)]);
+    timers[key(input)] = setTimeout(function () { save(input); }, 900);
+  });
+  root.addEventListener('change', function (e) {
+    var input = e.target;
+    if (!input.matches('input[data-level]')) return;
+    clearTimeout(timers[key(input)]);
+    save(input);
+  });
+  function save(input) {
+    if (input.disabled || input.getAttribute('data-saved') === input.value) return;
+    input.setAttribute('data-saved', input.value);
+    var raw = input.value.trim();
+    var amount = raw === '' ? null : Number(raw);
+    if (amount !== null && (isNaN(amount) || amount < 0)) { HSC.toast('Enter a valid price.', true); return; }
+    input.disabled = true;
+    HSC.api('PUT', '/api/admin/prices', {
+      level: input.getAttribute('data-level'),
+      targetId: input.getAttribute('data-target'),
+      standId: input.getAttribute('data-stand') || null,
+      amount: amount
+    }).then(function () {
+      HSC.toast(amount === null ? 'Override removed' : 'Price saved');
+      return HSC.refreshFragment('#pricing');
+    }).catch(function (err) {
+      HSC.toast(err.message, true);
+      input.removeAttribute('data-saved');
+      input.disabled = false;
+    });
+  }
+})();
+</script>
+}

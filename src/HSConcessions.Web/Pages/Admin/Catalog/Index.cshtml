@@ -1,0 +1,53 @@
+@page "/admin/catalog"
+@model HSConcessions.Web.Pages.Admin.Catalog.IndexModel
+@{
+    ViewData["Title"] = "Catalog";
+}
+<h1>Catalog</h1>
+<div class="btn-row" style="margin-bottom:12px">
+    @if (Model.CanEdit)
+    {
+        <a class="btn" href="/admin/catalog/edit/category">+ Category</a>
+        <a class="btn btn-outline" href="/admin/catalog/edit/subCategory">+ Sub-category</a>
+        <a class="btn btn-outline" href="/admin/catalog/edit/item">+ Item</a>
+    }
+    @if (Model.CanArchive)
+    {
+        <a class="btn btn-ghost" href="/admin/catalog/archive">Archive view</a>
+    }
+</div>
+
+@foreach (var cat in Model.Categories)
+{
+    <section class="cat-block">
+        <div class="cat-head" id="e-@cat.Id">
+            <h2>@cat.Name</h2>
+            <partial name="_CatalogActions" model="@(new CatalogActionsModel("category", cat.Id, cat.Name, Model.CanEdit, Model.CanArchive))" />
+        </div>
+        @{
+            var entries = Model.SubsOf(cat.Id).Select(s => (sort: s.SortOrder, name: s.Name, sub: (SubCategory?)s, item: (Item?)null))
+                .Concat(Model.DirectItemsOf(cat.Id).Select(i => (sort: i.SortOrder, name: i.Name, sub: (SubCategory?)null, item: (Item?)i)))
+                .OrderBy(e => e.sort).ThenBy(e => e.name).ToList();
+        }
+        @foreach (var e in entries)
+        {
+            if (e.item is { } item)
+            {
+                <partial name="_CatalogItemRow" model="@(new CatalogItemRowModel(item, Model.CanEdit, Model.CanArchive))" />
+            }
+            else if (e.sub is { } sub)
+            {
+                <div class="sub-head" id="e-@sub.Id">
+                    <h3>@sub.Name @if (!string.IsNullOrEmpty(sub.Description)) { <span class="muted small">— @sub.Description</span> }</h3>
+                    <partial name="_CatalogActions" model="@(new CatalogActionsModel("subCategory", sub.Id, sub.Name, Model.CanEdit, Model.CanArchive))" />
+                </div>
+                <div class="tree-sub">
+                    @foreach (var si in Model.ItemsOf(sub.Id))
+                    {
+                        <partial name="_CatalogItemRow" model="@(new CatalogItemRowModel(si, Model.CanEdit, Model.CanArchive))" />
+                    }
+                </div>
+            }
+        }
+    </section>
+}

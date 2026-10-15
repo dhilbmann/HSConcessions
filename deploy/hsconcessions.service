@@ -1,0 +1,43 @@
+# systemd unit template for one HSConcessions instance.
+# Install as /etc/systemd/system/hsconcessions@.service and start one instance per school:
+#   sudo systemctl enable --now hsconcessions@wildcatsnacks
+# %i is the instance name. Each instance has its own app folder, data, port, and env file:
+#   /opt/hsconcessions/%i/            published app (self-contained)
+#   /var/lib/hsconcessions/%i/        data, images, logs, backups
+#   /etc/hsconcessions/%i.env         port, system admins, OAuth secrets (chmod 600)
+
+[Unit]
+Description=HSConcessions (%i)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=exec
+User=hsconcessions
+Group=hsconcessions
+WorkingDirectory=/opt/hsconcessions/%i
+ExecStart=/opt/hsconcessions/%i/HSConcessions.Web
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=20
+
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_NOLOGO=1
+Environment=Instance__Name=%i
+Environment=Storage__DataPath=/var/lib/hsconcessions/%i/data
+Environment=Storage__ImagesPath=/var/lib/hsconcessions/%i/data/images
+Environment=Storage__LogsPath=/var/lib/hsconcessions/%i/logs
+Environment=Storage__BackupsPath=/var/lib/hsconcessions/%i/backups
+# ASPNETCORE_URLS (port), Seed__Profile, Auth__SystemAdmins__0, and OAuth secrets live here:
+EnvironmentFile=/etc/hsconcessions/%i.env
+
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/hsconcessions/%i
+
+[Install]
+WantedBy=multi-user.target

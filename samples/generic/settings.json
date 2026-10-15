@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-14T00:00:00Z",
+  "siteBaseUrl": "https://example.com",
+  "siteTitle": "HS Concessions",
+  "siteShortName": "Concessions",
+  "schoolName": "Your High School",
+  "mascotName": "Mascots",
+  "tagline": "",
+  "timeZone": "America/New_York",
+  "colors": {
+    "primary": "#1F3A5F",
+    "accent": "#F2A900",
+    "dark": "#000000",
+    "light": "#FFFFFF",
+    "stamp": "#C8102E",
+    "lowBadge": null
+  },
+  "fonts": {
+    "display": "Oswald",
+    "body": "Inter"
+  },
+  "images": {
+    "logo": null,
+    "mascot": null,
+    "favicon": null,
+    "faviconUploaded": false,
+    "tvBackground": null
+  },
+  "text": {
+    "closed": "Concessions Closed",
+    "openingAt": "Concessions Opening at {time}",
+    "openingSoon": "Opening Soon",
+    "soldOutStamp": "SOLD OUT",
+    "lowBadge": "Going Fast!",
+    "singleStandBanner": "Concessions are sold at the {stand} stand.",
+    "noStandsOpen": "No concession stands are open right now.",
+    "footer": "Payment accepted at the stand."
+  },
+  "openingSoonMinutes": 60,
+  "display": {
+    "categorySeconds": 12,
+    "refreshSeconds": 120,
+    "layout": "rotate",
+    "groupVarieties": true,
+    "showClock": true,
+    "showUpdatedTime": true
+  },
+  "public": {
+    "refreshSeconds": 120,
+    "upcomingGamesCount": 5
+  },
+  "calendar": {
+    "provider": "manual",
+    "icalUrl": null
+  }
+}

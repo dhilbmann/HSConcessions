@@ -1,0 +1,16 @@
+# Render blueprint for the public "try it" demo (free plan). See deploy/DEMO.md.
+services:
+  - type: web
+    name: wildcatsnacks-demo
+    runtime: docker
+    dockerfilePath: ./deploy/Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /theme.css
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Demo
+      - key: Seed__Profile
+        value: wildcatsnacks
+      - key: TZ
+        value: America/New_York

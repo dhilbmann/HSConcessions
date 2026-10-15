@@ -1,0 +1,54 @@
+@page "/admin/permissions"
+@model HSConcessions.Web.Pages.Admin.PermissionsModel
+@{
+    ViewData["Title"] = "Permissions";
+}
+<h1>Permission matrix</h1>
+<p class="muted small">
+    A user's permissions are the union of their roles. System Admins always have everything and aren't shown.
+    Changes save immediately and take effect on the user's next request. 🔒 cells are locked to prevent lockout;
+    the “Edit permission matrix” row can only be changed by a System Admin.
+</p>
+<div class="table-wrap perm-grid">
+    <table>
+        <thead>
+        <tr>
+            <th>Function</th>
+            @foreach (var r in Roles.All) { <th class="c">@r</th> }
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var f in Functions.All)
+        {
+            if (f.Key == Functions.ManageEvents && !Model.Features.Events) { continue; }
+            <tr>
+                <td>@f.Label</td>
+                @foreach (var r in Roles.All)
+                {
+                    var locked = Model.IsDisabled(f.Key, r);
+                    <td class="c @(locked ? "locked" : "")">
+                        <input type="checkbox" data-fn="@f.Key" data-role="@r" @(Model.IsChecked(f.Key, r) ? "checked" : "") @(locked ? "disabled" : "")
+                               aria-label="@f.Label — @r">
+                        @if (Functions.IsLockedOn(f.Key, r)) { <span title="Locked">🔒</span> }
+                    </td>
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+@section Scripts {
+<script>
+(function () {
+  document.querySelector('.perm-grid').addEventListener('change', function (e) {
+    var box = e.target;
+    if (!box.hasAttribute('data-fn')) return;
+    box.disabled = true;
+    HSC.api('PUT', '/api/admin/permissions', { function: box.getAttribute('data-fn'), role: box.getAttribute('data-role'), granted: box.checked })
+      .then(function () { HSC.toast('Saved'); })
+      .catch(function (err) { box.checked = !box.checked; HSC.toast(err.message, true); })
+      .then(function () { box.disabled = false; });
+  });
+})();
+</script>
+}

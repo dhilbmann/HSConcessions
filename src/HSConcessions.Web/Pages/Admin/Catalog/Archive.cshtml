@@ -1,0 +1,58 @@
+@page "/admin/catalog/archive"
+@model HSConcessions.Web.Pages.Admin.Catalog.ArchiveModel
+@{
+    ViewData["Title"] = "Archive";
+    var cats = Model.Catalog.Categories.Where(c => c.Archived).ToList();
+    var subs = Model.Catalog.SubCategories.Where(c => c.Archived).ToList();
+    var items = Model.Catalog.Items.Where(c => c.Archived).ToList();
+    var opts = Model.Catalog.Items.SelectMany(i => i.Options.Where(o => o.Archived).Select(o => (item: i, opt: o))).ToList();
+}
+<p><a href="/admin/catalog">← Catalog</a></p>
+<h1>Archive</h1>
+<p class="muted">Archived entries are hidden everywhere. Restoring brings them back with their prior data, prices, and pictures.</p>
+
+@if (cats.Count + subs.Count + items.Count + opts.Count == 0)
+{
+    <p>Nothing is archived.</p>
+}
+
+@{
+    void Row(string type, string id, string name, string detail)
+    {
+        <div class="tree-item">
+            <div class="grow"><b>@name</b> <span class="small muted">@detail</span></div>
+            <!form method="post" action="/admin/catalog/archive?handler=Restore">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="type" value="@type"><input type="hidden" name="id" value="@id">
+                <button class="btn btn-small">Restore</button>
+            </!form>
+        </div>
+    }
+}
+
+@if (cats.Count > 0)
+{
+    <h2>Categories</h2>
+    foreach (var c in cats) { Row("category", c.Id, c.Name, ""); }
+}
+@if (subs.Count > 0)
+{
+    <h2>Sub-categories</h2>
+    foreach (var s in subs) { Row("subCategory", s.Id, s.Name, "in " + Model.CategoryName(s.CategoryId)); }
+}
+@if (items.Count > 0)
+{
+    <h2>Items</h2>
+    foreach (var i in items) { Row("item", i.Id, i.Name, "in " + Model.CategoryName(i.CategoryId)); }
+}
+@if (opts.Count > 0)
+{
+    <h2>Options</h2>
+    foreach (var (item, opt) in opts)
+    {
+        <div class="tree-item">
+            <div class="grow"><b>@opt.Name</b> <span class="small muted">option of @item.Name</span></div>
+            <a class="btn btn-small btn-outline" href="/admin/catalog/edit/item/@item.Id">Restore on item page</a>
+        </div>
+    }
+}

@@ -1,0 +1,132 @@
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@inject JsonStore Store
+@inject PermissionService Perms
+@inject FeatureOptions Features
+@inject DemoOptions Demo
+@{
+    var settings = Store.Read<SiteSettings>(DataFileNames.Settings);
+    var site = PublicStateService.Site(settings);
+    var tokens = Antiforgery.GetAndStoreTokens(Context);
+    var access = HSConcessions.Web.Auth.CurrentUser.Get(Context);
+    var granted = access is null ? new HashSet<string>() : Perms.AllGranted(access);
+    bool Can(string f) => granted.Contains(f);
+    var path = Context.Request.Path.Value?.ToLowerInvariant() ?? "";
+    string Active(string prefix) => (prefix == "/admin" ? path == "/admin" || path == "/admin/" : path.StartsWith(prefix)) ? "active" : "";
+    var pageModel = Model as AdminPageModel;
+    var fav = settings.Images.Favicon;
+    string DemoResetText(int minutes) => minutes % 1440 == 0 ? (minutes == 1440 ? "day" : $"{minutes / 1440} days")
+        : minutes % 60 == 0 ? (minutes == 60 ? "hour" : $"{minutes / 60} hours") : $"{minutes} minutes";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="@ColorUtil.Normalize(settings.Colors.Primary, "#1F3A5F")">
+    <meta name="csrf-token" content="@tokens.RequestToken">
+    <meta name="robots" content="noindex">
+    <title>@(ViewData["Title"] is string t ? t + " · " : "")@settings.SiteShortName Admin</title>
+    @if (fav is not null)
+    {
+        <link rel="icon" href="/favicon.ico" sizes="any">
+        <link rel="apple-touch-icon" href="/images/@(fav)-180.png">
+    }
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/css/admin.css?v=@HSConcessions.Web.Api.AppVersion.Value">
+    @await RenderSectionAsync("Head", required: false)
+</head>
+<body class="admin">
+<header class="admin-header">
+    <a class="brand" href="/admin">
+        <img src="@site.LogoUrl" alt="" class="brand-logo">
+        <span>@settings.SiteShortName</span>
+    </a>
+    @if (access is not null)
+    {
+        <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false" data-nav-toggle>☰</button>
+    }
+</header>
+@if (access is not null)
+{
+    <nav class="admin-nav" data-nav>
+        <a class="@Active("/admin")" href="/admin">Dashboard</a>
+        @if (Can(Functions.ManageCatalog) || Can(Functions.ArchiveCatalog) || Can(Functions.UploadPictures))
+        {
+            <a class="@Active("/admin/catalog")" href="/admin/catalog">Catalog</a>
+        }
+        @if (Can(Functions.SetPrices))
+        {
+            <a class="@Active("/admin/pricing")" href="/admin/pricing">Pricing</a>
+        }
+        @if (Can(Functions.ManageMenus))
+        {
+            <a class="@Active("/admin/menus")" href="/admin/menus">Menus</a>
+        }
+        @if (Features.Events && Can(Functions.ManageEvents))
+        {
+            <a class="@Active("/admin/events")" href="/admin/events">Events</a>
+        }
+        @if (Can(Functions.ManageCalendar))
+        {
+            <a class="@Active("/admin/calendar")" href="/admin/calendar">Calendar</a>
+        }
+        @if (Can(Functions.ManageUsers))
+        {
+            <a class="@Active("/admin/users")" href="/admin/users">Users</a>
+        }
+        @if (Can(Functions.EditPermissionMatrix) || access.IsSystemAdmin)
+        {
+            <a class="@Active("/admin/permissions")" href="/admin/permissions">Permissions</a>
+        }
+        @if (Can(Functions.EditSettings))
+        {
+            <a class="@Active("/admin/settings")" href="/admin/settings">Settings</a>
+            <a class="@Active("/admin/branding")" href="/admin/branding">Branding</a>
+            <a class="@Active("/admin/stand-setup")" href="/admin/stand-setup">Stand setup</a>
+            <a class="@Active("/admin/qr")" href="/admin/qr">QR codes</a>
+        }
+        @if (Can(Functions.ViewAudit))
+        {
+            <a class="@Active("/admin/audit")" href="/admin/audit">Audit log</a>
+        }
+        @if (Can(Functions.DownloadLogs))
+        {
+            <a class="@Active("/admin/logs")" href="/admin/logs">Logs</a>
+        }
+        @if (Can(Functions.ManageBackups))
+        {
+            <a class="@Active("/admin/backups")" href="/admin/backups">Backups</a>
+        }
+        <a href="/" target="_blank" rel="noopener">Public site ↗</a>
+        <div class="nav-user">
+            <span title="@access.Email">@(access.DisplayName ?? access.Email)@(access.IsSystemAdmin && access.DisplayName != "System Admin" ? " · System Admin" : "")</span>
+            <form method="post" action="/admin/logout">
+                <input type="hidden" name="__RequestVerificationToken" value="@tokens.RequestToken">
+                <button type="submit" class="btn btn-small btn-ghost">Sign out</button>
+            </form>
+        </div>
+    </nav>
+}
+@if (Demo.Enabled)
+{
+    <div class="demo-banner" role="note">
+        <b>Demo site.</b> Anyone can sign in and change things. Everything resets to the sample menu every @DemoResetText(Demo.ResetIntervalMinutes).
+    </div>
+}
+<main class="admin-main">
+    @if (!string.IsNullOrEmpty(pageModel?.Flash))
+    {
+        <div class="flash flash-ok" role="status">@pageModel.Flash</div>
+    }
+    @if (!string.IsNullOrEmpty(pageModel?.FlashError))
+    {
+        <div class="flash flash-error" role="alert">@pageModel.FlashError</div>
+    }
+    @RenderBody()
+</main>
+<div class="toast" data-toast hidden></div>
+<script src="/js/admin.js?v=@HSConcessions.Web.Api.AppVersion.Value"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

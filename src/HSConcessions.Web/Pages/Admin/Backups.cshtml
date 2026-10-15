@@ -1,0 +1,54 @@
+@page "/admin/backups"
+@model HSConcessions.Web.Pages.Admin.BackupsModel
+@{
+    ViewData["Title"] = "Backups";
+}
+<h1>Backups</h1>
+<p class="muted small">A backup of all data and images is taken every day at 3:00 AM and kept for 30 days. Restoring first takes a backup of the current data.</p>
+<div class="btn-row" style="margin-bottom:12px">
+    <button class="btn" type="button" data-backup-now>Back up now</button>
+</div>
+<div class="table-wrap">
+    <table>
+        <thead><tr><th>Backup</th><th class="num">Size</th><th>Created</th><th></th><th></th></tr></thead>
+        <tbody>
+        @foreach (var b in Model.Backups)
+        {
+            <tr>
+                <td>@b.Name</td>
+                <td class="num">@HSConcessions.Web.Pages.Admin.LogsModel.Size(b.Size)</td>
+                <td class="nowrap">@Model.Created(b.CreatedUtc)</td>
+                <td><a class="btn btn-small btn-outline" href="/api/admin/backups/@Uri.EscapeDataString(b.Name)">Download</a></td>
+                <td><button class="btn btn-small btn-danger" type="button" data-restore="@b.Name">Restore…</button></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+@if (Model.Backups.Count == 0)
+{
+    <p class="muted">No backups yet.</p>
+}
+@section Scripts {
+<script>
+(function () {
+  document.querySelector('[data-backup-now]').addEventListener('click', function (e) {
+    e.target.disabled = true;
+    HSC.api('POST', '/api/admin/backups').then(function (r) { HSC.toast('Created ' + r.name); setTimeout(function () { location.reload(); }, 600); })
+      .catch(function (err) { HSC.toast(err.message, true); e.target.disabled = false; });
+  });
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-restore]');
+    if (!btn) return;
+    var name = btn.getAttribute('data-restore');
+    if (!window.confirm('Restore ' + name + '?\n\nThis replaces ALL current data (stands, catalog, prices, menus, users, settings). A backup of the current data is taken first.')) return;
+    var typed = window.prompt('Type RESTORE to confirm.');
+    if (typed !== 'RESTORE') { HSC.toast('Restore cancelled.'); return; }
+    btn.disabled = true;
+    HSC.api('POST', '/api/admin/backups/' + encodeURIComponent(name) + '/restore', { confirm: typed })
+      .then(function (r) { HSC.toast('Restored. Safety backup: ' + r.preRestoreBackup); setTimeout(function () { location.reload(); }, 1200); })
+      .catch(function (err) { HSC.toast(err.message, true); btn.disabled = false; });
+  });
+})();
+</script>
+}

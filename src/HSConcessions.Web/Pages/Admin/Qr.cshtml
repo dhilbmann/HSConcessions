@@ -1,0 +1,22 @@
+@page "/admin/qr"
+@model HSConcessions.Web.Pages.Admin.QrModel
+@{
+    ViewData["Title"] = "QR codes";
+}
+<h1>QR codes</h1>
+<p class="muted small">Codes are built from the site base URL (<b>@Model.Settings.SiteBaseUrl</b>). If the domain changes, update it in <a href="/admin/settings">Settings</a> and re-print.</p>
+<div class="cards">
+    @foreach (var t in Model.Targets)
+    {
+        <section class="card">
+            <h3>@t.Label</h3>
+            <img class="qr-preview" src="/api/admin/qr?target=@Uri.EscapeDataString(t.Key)&format=png" alt="QR code for @t.Url" loading="lazy">
+            <p class="small"><code>@t.Url</code></p>
+            <div class="btn-row">
+                <a class="btn btn-small" href="/api/admin/qr?target=@Uri.EscapeDataString(t.Key)&format=png" download>PNG (1024px)</a>
+                <a class="btn btn-small btn-outline" href="/api/admin/qr?target=@Uri.EscapeDataString(t.Key)&format=svg" download>SVG</a>
+                <a class="btn btn-small btn-ghost" href="/admin/qr/sign/@Uri.EscapeDataString(t.Key)" target="_blank" rel="noopener">Printable sign</a>
+            </div>
+        </section>
+    }
+</div>

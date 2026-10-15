@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{siteTitle}}</title>
+  <meta name="description" content="{{description}}">
+  <meta name="theme-color" content="{{themeColor}}">
+  <meta name="apple-mobile-web-app-title" content="{{siteShortName}}">
+  {{icons}}
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="/theme.css">
+  <link rel="stylesheet" href="/css/public.css?v={{version}}">
+</head>
+<body class="pub-root">
+  <header class="pub-header">
+    <img class="pub-logo" src="{{logoUrl}}" alt="">
+    <div class="pub-head-text">
+      <h1 class="pub-title">{{siteTitle}}</h1>
+      <div class="pub-tagline" data-tagline></div>
+    </div>
+  </header>
+  <nav class="pub-tabs" data-tabs hidden></nav>
+  <main class="pub-main" id="app" aria-live="polite">
+    <p class="pub-loading">Loading menu…</p>
+  </main>
+  <footer class="pub-footer">
+    <span data-footer></span>
+    <a class="pub-admin-link" href="/admin">Volunteer login</a>
+  </footer>
+  <script src="/js/public.js?v={{version}}"></script>
+</body>
+</html>

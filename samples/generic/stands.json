@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-14T00:00:00Z",
+  "stands": [
+    {
+      "id": "football",
+      "name": "Football",
+      "slug": "football",
+      "sortOrder": 10,
+      "archived": false,
+      "displayLayout": null,
+      "state": {
+        "isOpen": false,
+        "openingAt": null,
+        "closingAt": null,
+        "lastAppliedMenuId": null,
+        "items": {}
+      }
+    },
+    {
+      "id": "baseball",
+      "name": "Baseball",
+      "slug": "baseball",
+      "sortOrder": 20,
+      "archived": false,
+      "displayLayout": null,
+      "state": {
+        "isOpen": false,
+        "openingAt": null,
+        "closingAt": null,
+        "lastAppliedMenuId": null,
+        "items": {}
+      }
+    },
+    {
+      "id": "inside",
+      "name": "Inside",
+      "slug": "inside",
+      "sortOrder": 30,
+      "archived": false,
+      "displayLayout": null,
+      "state": {
+        "isOpen": false,
+        "openingAt": null,
+        "closingAt": null,
+        "lastAppliedMenuId": null,
+        "items": {}
+      }
+    }
+  ]
+}

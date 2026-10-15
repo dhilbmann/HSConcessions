@@ -1,0 +1,82 @@
+@page "/admin/menus/{id}"
+@model HSConcessions.Web.Pages.Admin.Menus.EditModel
+@{
+    ViewData["Title"] = Model.Menu.Name;
+    var selected = new HashSet<string>(Model.Menu.ItemIds);
+    var cat = Model.Catalog;
+}
+<p><a href="/admin/menus">← Menus</a></p>
+<h1>@Model.Menu.Name</h1>
+<form method="post" id="menu-form">
+    <div class="field" style="max-width:360px">
+        <label for="stand">Stand</label>
+        <select id="stand" name="standId">
+            @foreach (var s in Model.Stands)
+            {
+                <option value="@s.Id" selected="@(s.Id == Model.Menu.StandId)">@s.Name</option>
+            }
+        </select>
+    </div>
+    <div class="sticky-actions btn-row">
+        <button class="btn" type="submit">Save menu</button>
+        <span class="muted small" data-count></span>
+    </div>
+    @foreach (var c in cat.Categories.Where(c => !c.Archived).OrderBy(c => c.SortOrder))
+    {
+        var direct = cat.Items.Where(i => i.CategoryId == c.Id && i.SubCategoryId == null && !i.Archived).OrderBy(i => i.SortOrder).ToList();
+        var subs = cat.SubCategories.Where(s => s.CategoryId == c.Id && !s.Archived).OrderBy(s => s.SortOrder).ToList();
+        <section class="cat-block" data-bulk-scope>
+            <div class="cat-head">
+                <label class="check" style="margin:0"><input type="checkbox" data-bulk> <h2 style="margin:0">@c.Name</h2></label>
+            </div>
+            @foreach (var i in direct)
+            {
+                <label class="check item-row" style="display:flex"><input type="checkbox" name="itemIds" value="@i.Id" checked="@selected.Contains(i.Id)"> @i.Name</label>
+            }
+            @foreach (var s in subs)
+            {
+                var items = cat.Items.Where(i => i.SubCategoryId == s.Id && !i.Archived).OrderBy(i => i.SortOrder).ToList();
+                if (items.Count == 0) { continue; }
+                <div data-bulk-scope>
+                    <div class="sub-head">
+                        <label class="check" style="margin:0"><input type="checkbox" data-bulk> <h3 style="margin:0">@s.Name</h3></label>
+                    </div>
+                    @foreach (var i in items)
+                    {
+                        <label class="check item-row" style="display:flex;padding-left:28px"><input type="checkbox" name="itemIds" value="@i.Id" checked="@selected.Contains(i.Id)"> @i.Name</label>
+                    }
+                </div>
+            }
+        </section>
+    }
+</form>
+@section Scripts {
+<script>
+(function () {
+  var form = document.getElementById('menu-form');
+  var count = form.querySelector('[data-count]');
+  function sync() {
+    var scopes = form.querySelectorAll('[data-bulk-scope]');
+    // Innermost first so category state reflects sub-category state.
+    for (var i = scopes.length - 1; i >= 0; i--) {
+      var boxes = scopes[i].querySelectorAll('input[name=itemIds]');
+      var on = 0;
+      for (var j = 0; j < boxes.length; j++) if (boxes[j].checked) on++;
+      var bulk = scopes[i].querySelector('[data-bulk]');
+      bulk.checked = boxes.length > 0 && on === boxes.length;
+      bulk.indeterminate = on > 0 && on < boxes.length;
+    }
+    count.textContent = form.querySelectorAll('input[name=itemIds]:checked').length + ' items selected';
+  }
+  form.addEventListener('change', function (e) {
+    if (e.target.hasAttribute('data-bulk')) {
+      var scope = e.target.closest('[data-bulk-scope]');
+      var boxes = scope.querySelectorAll('input[name=itemIds]');
+      for (var i = 0; i < boxes.length; i++) boxes[i].checked = e.target.checked;
+    }
+    sync();
+  });
+  sync();
+})();
+</script>
+}

@@ -1,0 +1,177 @@
+@page "/admin/stands/{id}"
+@model HSConcessions.Web.Pages.Admin.StandModel
+@{
+    ViewData["Title"] = Model.Stand.Name;
+    var s = Model.Stand;
+}
+<div id="stand" data-stand="@s.Id" data-stand-name="@s.Name"
+     data-can-selling="@(Model.CanSelling ? "1" : "0")" data-can-status="@(Model.CanStatus ? "1" : "0")">
+    <h1>
+        @s.Name stand
+        @if (s.State.IsOpen)
+        {
+            <span class="pill pill-open">Open</span>
+        }
+        else
+        {
+            <span class="pill">Closed</span>
+        }
+    </h1>
+    @if (Model.PhaseMessage is not null)
+    {
+        <p class="muted">TV shows: “@Model.PhaseMessage”</p>
+    }
+
+    @if (Model.CanOpenClose)
+    {
+        <div class="btn-row">
+            @if (!s.State.IsOpen)
+            {
+                <button class="btn btn-accent" type="button" data-action="open">Open @s.Name</button>
+            }
+            else
+            {
+                <button class="btn btn-danger" type="button" data-action="close">Close @s.Name</button>
+            }
+        </div>
+    }
+
+    @if (Model.CanTimes)
+    {
+        <section class="card" style="margin-top:14px">
+            <h3>Times <span class="muted small">(shown on TV and phone; they never open or close the stand)</span></h3>
+            <div class="field-row">
+                <div class="field">
+                    <label for="t-date">Date</label>
+                    <input id="t-date" type="date" value="@Model.DateValue">
+                </div>
+                <div class="field">
+                    <label for="t-open">Opening time</label>
+                    <input id="t-open" type="time" value="@Model.OpeningValue">
+                </div>
+                <div class="field">
+                    <label for="t-close">Closing time</label>
+                    <input id="t-close" type="time" value="@Model.ClosingValue">
+                </div>
+            </div>
+            <div class="btn-row">
+                <button class="btn" type="button" data-action="times">Save times</button>
+                <button class="btn btn-outline" type="button" data-action="clear-times">Clear times</button>
+            </div>
+        </section>
+    }
+
+    @if (Model.CanApply)
+    {
+        <section class="card">
+            <h3>Preset menu</h3>
+            @if (Model.Menus.Count == 0)
+            {
+                <p class="muted">No preset menus for this stand yet.</p>
+            }
+            else
+            {
+                <div class="field-row">
+                    <div class="field">
+                        <label for="menu-select">Menu</label>
+                        <select id="menu-select">
+                            @foreach (var m in Model.Menus)
+                            {
+                                <option value="@m.Id" selected="@(m.Id == s.State.LastAppliedMenuId)">@m.Name (@m.ItemIds.Count items)</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="btn-row">
+                    <button class="btn" type="button" data-action="apply">Apply menu</button>
+                    @if (Model.LastMenu is not null)
+                    {
+                        <button class="btn btn-accent" type="button" data-action="reapply">Re-apply last menu: @Model.LastMenu.Name</button>
+                    }
+                </div>
+                <p class="help">Applying sets exactly the menu's items as selling and resets Low / Sold Out.</p>
+            }
+        </section>
+    }
+
+    <div class="sticky-actions">
+        <div class="toolbar">
+            <input type="search" placeholder="Search items" data-search aria-label="Search items">
+            <select data-filter aria-label="Filter" style="width:auto">
+                <option value="all">All items</option>
+                <option value="selling">Selling only</option>
+                <option value="flagged">Low / Sold Out only</option>
+            </select>
+        </div>
+    </div>
+
+    @foreach (var cat in Model.Categories)
+    {
+        <section class="cat-block" data-cat>
+            <div class="cat-head">
+                <h2>@cat.Category.Name</h2>
+                <div class="btn-row">
+                    @if (Model.CanSelling)
+                    {
+                        <button class="btn btn-small btn-ghost" data-bulk="category" data-target="@cat.Category.Id" data-selling="true">All selling</button>
+                        <button class="btn btn-small btn-ghost" data-bulk="category" data-target="@cat.Category.Id" data-selling="false">None</button>
+                    }
+                    @if (Model.CanStatus)
+                    {
+                        <button class="btn btn-small btn-ghost" data-bulk="category" data-target="@cat.Category.Id" data-status="soldOut">All sold out</button>
+                        <button class="btn btn-small btn-ghost" data-bulk="category" data-target="@cat.Category.Id" data-status="ok">All OK</button>
+                    }
+                </div>
+            </div>
+            @foreach (var g in cat.Groups)
+            {
+                <div data-group>
+                    @if (g.Sub is not null)
+                    {
+                        <div class="sub-head">
+                            <h3>@g.Sub.Name</h3>
+                            <div class="btn-row">
+                                @if (Model.CanSelling)
+                                {
+                                    <button class="btn btn-small btn-outline" data-bulk="subCategory" data-target="@g.Sub.Id" data-selling="true">All @g.Sub.Name selling</button>
+                                    <button class="btn btn-small btn-outline" data-bulk="subCategory" data-target="@g.Sub.Id" data-selling="false">None</button>
+                                }
+                                @if (Model.CanStatus)
+                                {
+                                    <button class="btn btn-small btn-outline" data-bulk="subCategory" data-target="@g.Sub.Id" data-status="soldOut">All @g.Sub.Name sold out</button>
+                                    <button class="btn btn-small btn-outline" data-bulk="subCategory" data-target="@g.Sub.Id" data-status="ok">All OK</button>
+                                }
+                            </div>
+                        </div>
+                    }
+                    @foreach (var r in g.Rows)
+                    {
+                        <div class="item-row" data-item="@r.Item.Id" data-name="@r.Item.Name.ToLowerInvariant()"
+                             data-selling="@(r.State.Selling ? "1" : "0")" data-status="@r.State.Status"
+                             data-cat-id="@cat.Category.Id" data-sub-id="@(g.Sub?.Id ?? "")">
+                            <div>
+                                <div class="name">@r.Item.Name</div>
+                                <div class="price @(r.NoPrice ? "price-missing" : "")">@r.PriceText</div>
+                            </div>
+                            <span class="save-ind" data-ind></span>
+                            <div class="controls">
+                                <label class="switch" title="Selling">
+                                    <input type="checkbox" data-selling-toggle @(r.State.Selling ? "checked" : "") @(Model.CanSelling ? "" : "disabled") aria-label="Selling @r.Item.Name">
+                                    <span></span>
+                                </label>
+                                <div class="seg" role="group" aria-label="Status of @r.Item.Name">
+                                    <button type="button" data-status="ok" class="@(r.State.Status == "ok" ? "on" : "")" @(Model.CanStatus ? "" : "disabled")>OK</button>
+                                    <button type="button" data-status="low" class="@(r.State.Status == "low" ? "on" : "")" @(Model.CanStatus ? "" : "disabled")>Low</button>
+                                    <button type="button" data-status="soldOut" class="@(r.State.Status == "soldOut" ? "on" : "")" @(Model.CanStatus ? "" : "disabled")>Sold Out</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </section>
+    }
+</div>
+@section Scripts {
+    <script src="/js/stand.js?v=@HSConcessions.Web.Api.AppVersion.Value"></script>
+}

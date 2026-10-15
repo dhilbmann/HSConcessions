@@ -1,0 +1,83 @@
+@page "/admin/calendar"
+@model HSConcessions.Web.Pages.Admin.CalendarModel
+@{
+    ViewData["Title"] = "Calendar";
+    var cal = Model.Settings.Calendar;
+}
+<h1>Game calendar</h1>
+<p class="muted small">Upcoming games appear on the public page when no stands are open.</p>
+
+<form method="post" asp-page-handler="Provider" class="card">
+    <h3>Source</h3>
+    <label class="check"><input type="radio" name="provider" value="manual" @(cal.Provider != "ical" ? "checked" : "")> Enter games manually (below)</label>
+    <label class="check"><input type="radio" name="provider" value="ical" @(cal.Provider == "ical" ? "checked" : "")> Use an iCal feed (refreshed every 30 minutes)</label>
+    <div class="field">
+        <label for="ical">iCal feed URL</label>
+        <input id="ical" name="icalUrl" type="url" value="@cal.IcalUrl" placeholder="https://…/calendar.ics">
+    </div>
+    <button class="btn" type="submit">Save source</button>
+</form>
+
+<section class="card">
+    <h3>What the public page shows now</h3>
+    @if (Model.Preview.Count == 0)
+    {
+        <p class="muted">No upcoming games.</p>
+    }
+    <ul>
+        @foreach (var g in Model.Preview)
+        {
+            <li>@Model.Display(g.StartsAt) — @g.Title @(string.IsNullOrEmpty(g.Level) ? "" : "(" + g.Level + ")") @(g.Home ? "Home" : "Away")</li>
+        }
+    </ul>
+</section>
+
+<h2>Manual games</h2>
+@{
+    var editing = Model.Games.FirstOrDefault(g => g.Id == Model.EditId);
+}
+<form method="post" asp-page-handler="Save" class="card">
+    <h3>@(editing is null ? "Add a game" : "Edit game")</h3>
+    <input type="hidden" name="game.Id" value="@editing?.Id">
+    <div class="field-row">
+        <div class="field"><label for="gd">Date</label><input id="gd" name="game.Date" type="date" required value="@(editing is null ? "" : Model.LocalDate(editing.StartsAt))"></div>
+        <div class="field"><label for="gt">Time</label><input id="gt" name="game.Time" type="time" required value="@(editing is null ? "18:00" : Model.LocalTime(editing.StartsAt))"></div>
+    </div>
+    <div class="field"><label for="gtitle">Opponent / title</label><input id="gtitle" name="game.Title" type="text" required maxlength="120" value="@editing?.Title" placeholder="vs. Central High"></div>
+    <div class="field-row">
+        <div class="field"><label for="glevel">Team level</label><input id="glevel" name="game.Level" type="text" maxlength="40" value="@editing?.Level" placeholder="Varsity, JV…" list="levels"></div>
+        <div class="field"><label for="gsport">Sport</label><input id="gsport" name="game.Sport" type="text" maxlength="40" value="@editing?.Sport" placeholder="Football"></div>
+        <div class="field"><label for="gloc">Location</label><input id="gloc" name="game.Location" type="text" maxlength="120" value="@editing?.Location"></div>
+    </div>
+    <datalist id="levels"><option value="Varsity"></option><option value="JV"></option><option value="Freshman"></option><option value="Middle School"></option></datalist>
+    <label class="check"><input type="radio" name="game.Home" value="true" @(editing?.Home != false ? "checked" : "")> Home</label>
+    <label class="check"><input type="radio" name="game.Home" value="false" @(editing?.Home == false ? "checked" : "")> Away</label>
+    <div class="btn-row">
+        <button class="btn" type="submit">@(editing is null ? "Add game" : "Save game")</button>
+        @if (editing is not null) { <a class="btn btn-outline" href="/admin/calendar">Cancel</a> }
+    </div>
+</form>
+
+<div class="table-wrap">
+    <table>
+        <thead><tr><th>When</th><th>Game</th><th>Level</th><th>Sport</th><th></th><th></th></tr></thead>
+        <tbody>
+        @foreach (var g in Model.Games)
+        {
+            <tr>
+                <td class="nowrap">@Model.Display(g.StartsAt)</td>
+                <td>@g.Title <span class="muted small">@(g.Home ? "Home" : "Away")@(string.IsNullOrEmpty(g.Location) ? "" : " · " + g.Location)</span></td>
+                <td>@g.Level</td>
+                <td>@g.Sport</td>
+                <td><a class="btn btn-small btn-outline" href="/admin/calendar?edit=@g.Id">Edit</a></td>
+                <td>
+                    <form method="post" asp-page-handler="Delete" data-confirm="Remove this game?">
+                        <input type="hidden" name="id" value="@g.Id">
+                        <button class="btn btn-small btn-ghost">Remove</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

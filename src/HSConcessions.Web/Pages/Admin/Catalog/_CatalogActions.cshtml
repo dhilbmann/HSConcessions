@@ -1,0 +1,25 @@
+@model HSConcessions.Web.Pages.CatalogActionsModel
+<div class="btn-row">
+    @if (Model.CanEdit)
+    {
+        <form method="post" action="/admin/catalog?handler=Move" style="display:inline">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="type" value="@Model.Type"><input type="hidden" name="id" value="@Model.Id"><input type="hidden" name="dir" value="-1">
+            <button class="btn btn-small btn-ghost" title="Move up" aria-label="Move @Model.Name up">▲</button>
+        </form>
+        <form method="post" action="/admin/catalog?handler=Move" style="display:inline">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="type" value="@Model.Type"><input type="hidden" name="id" value="@Model.Id"><input type="hidden" name="dir" value="1">
+            <button class="btn btn-small btn-ghost" title="Move down" aria-label="Move @Model.Name down">▼</button>
+        </form>
+    }
+    <a class="btn btn-small btn-ghost" href="/admin/catalog/edit/@Model.Type/@Model.Id">Edit</a>
+    @if (Model.CanArchive)
+    {
+        <form method="post" action="/admin/catalog?handler=Archive" style="display:inline" data-confirm="Archive @Model.Name? It will be hidden everywhere until restored.">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="type" value="@Model.Type"><input type="hidden" name="id" value="@Model.Id">
+            <button class="btn btn-small btn-ghost">Archive</button>
+        </form>
+    }
+</div>
