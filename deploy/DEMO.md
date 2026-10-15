@@ -12,13 +12,26 @@ The demo is the normal app running in the **Demo** environment (`ASPNETCORE_ENVI
   not written to the audit log.
 - Never point the demo at real data, and never use Demo mode for the real site.
 
+## What visitors see
+
+`Seed__Profile` picks the seed profile the demo starts from and resets to:
+
+| Profile | Contents |
+|---|---|
+| `wildcatsnacks-demo` | Snapshot of the configured WildcatSnacks site: branding, stands (open, menus applied), catalog, prices, menus. **Current demo.** |
+| `wildcatsnacks` | Official 2026 menu exactly as printed (verified by tests), all stands closed. |
+| `generic` | Neutral template. |
+
+To refresh the snapshot, copy the JSON files from a local `data/` folder into `samples/wildcatsnacks-demo/` along with the
+images they reference, commit, and push.
+
 ## Quickest path: Render (free, no credit card, temporary `*.onrender.com` name)
 
 1. Push this repository to GitHub (a private repo is fine).
 2. Sign in at <https://render.com> with GitHub → **New** → **Blueprint** → pick the repo.
    Render reads [`render.yaml`](../render.yaml) and creates the `wildcatsnacks-demo` web service.
    (Or **New → Web Service**, choose **Docker**, Dockerfile path `Dockerfile` (repo root), and add the environment variables
-   `ASPNETCORE_ENVIRONMENT=Demo` and `Seed__Profile=wildcatsnacks`.)
+   `ASPNETCORE_ENVIRONMENT=Demo` and `Seed__Profile=wildcatsnacks-demo`.)
 3. Wait for the first build (several minutes). The site is at `https://wildcatsnacks-demo.onrender.com` (or the name Render
    assigns). Share `/admin` for the admin side, `/` for the phone menu, and `/display/stadium` for a TV.
 
@@ -29,5 +42,5 @@ menu — fine for a demo.
 ## Other hosts
 
 Anything that runs a Docker container behind HTTPS works the same way: build the `Dockerfile` in the repo root, set
-`ASPNETCORE_ENVIRONMENT=Demo` and `Seed__Profile=wildcatsnacks`. The app listens on `$PORT` if the platform sets it,
+`ASPNETCORE_ENVIRONMENT=Demo` and `Seed__Profile=wildcatsnacks-demo`. The app listens on `$PORT` if the platform sets it,
 otherwise 8080, and `Hosting__TrustForwardedHeaders` is already on in Demo so the platform's HTTPS is detected.

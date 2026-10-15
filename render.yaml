@@ -10,7 +10,9 @@ services:
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Demo
+      # wildcatsnacks-demo = a snapshot of the live configuration shown to visitors.
+      # Switch back to wildcatsnacks (official 2026 menu) or generic when the demo is over.
       - key: Seed__Profile
-        value: wildcatsnacks
+        value: wildcatsnacks-demo
       - key: TZ
         value: America/New_York

@@ -1,0 +1,697 @@
+{
+  "categories": [
+    {
+      "id": "cat-drinks",
+      "name": "Drinks",
+      "sortOrder": 10,
+      "imageId": null,
+      "archived": false
+    },
+    {
+      "id": "cat-food",
+      "name": "Food",
+      "sortOrder": 20,
+      "imageId": null,
+      "archived": false
+    },
+    {
+      "id": "cat-snacks",
+      "name": "Snacks",
+      "sortOrder": 30,
+      "imageId": null,
+      "archived": false
+    }
+  ],
+  "subCategories": [
+    {
+      "id": "sub-soft-drinks",
+      "categoryId": "cat-drinks",
+      "name": "Soft Drinks",
+      "description": "",
+      "sortOrder": 10,
+      "imageId": null,
+      "archived": false
+    },
+    {
+      "id": "sub-gatorade",
+      "categoryId": "cat-drinks",
+      "name": "Gatorade",
+      "description": "",
+      "sortOrder": 20,
+      "imageId": null,
+      "archived": false
+    },
+    {
+      "id": "sub-red-bull",
+      "categoryId": "cat-drinks",
+      "name": "Red Bull",
+      "description": "",
+      "sortOrder": 30,
+      "imageId": null,
+      "archived": false
+    },
+    {
+      "id": "sub-pizza",
+      "categoryId": "cat-food",
+      "name": "Pizza",
+      "description": "",
+      "sortOrder": 60,
+      "imageId": null,
+      "archived": false
+    },
+    {
+      "id": "sub-candy",
+      "categoryId": "cat-snacks",
+      "name": "Candy",
+      "description": "",
+      "sortOrder": 70,
+      "imageId": null,
+      "archived": false
+    }
+  ],
+  "items": [
+    {
+      "id": "itm-pepsi",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-soft-drinks",
+      "name": "Pepsi",
+      "description": "",
+      "imageId": "img-c92d4ba6591c94e4",
+      "sortOrder": 10,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-diet-pepsi",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-soft-drinks",
+      "name": "Diet Pepsi",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-pepsi-zero",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-soft-drinks",
+      "name": "Pepsi Zero",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 30,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-dr-pepper",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-soft-drinks",
+      "name": "Dr. Pepper",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 40,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-diet-dr-pepper",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-soft-drinks",
+      "name": "Diet Dr. Pepper",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 50,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-starry",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-soft-drinks",
+      "name": "Starry",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 60,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-mountain-dew",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-soft-drinks",
+      "name": "Mountain Dew",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 70,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-root-beer",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-soft-drinks",
+      "name": "Root Beer",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 80,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-brisk-iced-tea",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-soft-drinks",
+      "name": "Brisk Iced Tea",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 90,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-strawberry-lemonade",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-soft-drinks",
+      "name": "Strawberry Lemonade",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 100,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-gatorade-red",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-gatorade",
+      "name": "Red",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 10,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-gatorade-blue",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-gatorade",
+      "name": "Blue",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-gatorade-orange",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-gatorade",
+      "name": "Orange",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 30,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-gatorade-yellow",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-gatorade",
+      "name": "Yellow",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 40,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-gatorade-white",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-gatorade",
+      "name": "White (Cherry)",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 50,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-red-bull",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-red-bull",
+      "name": "Regular",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 10,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-red-bull-diet",
+      "categoryId": "cat-drinks",
+      "subCategoryId": "sub-red-bull",
+      "name": "Diet",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-water",
+      "categoryId": "cat-drinks",
+      "subCategoryId": null,
+      "name": "Water",
+      "description": "Aquafina",
+      "imageId": null,
+      "sortOrder": 40,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-coffee",
+      "categoryId": "cat-drinks",
+      "subCategoryId": null,
+      "name": "Coffee",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 50,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-hot-chocolate",
+      "categoryId": "cat-drinks",
+      "subCategoryId": null,
+      "name": "Hot Chocolate",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 60,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-hamburger",
+      "categoryId": "cat-food",
+      "subCategoryId": null,
+      "name": "Hamburger",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 10,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-cheeseburger",
+      "categoryId": "cat-food",
+      "subCategoryId": null,
+      "name": "Cheeseburger",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-hot-dog",
+      "categoryId": "cat-food",
+      "subCategoryId": null,
+      "name": "Hot Dog",
+      "description": "All beef",
+      "imageId": null,
+      "sortOrder": 30,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-chick-fil-a",
+      "categoryId": "cat-food",
+      "subCategoryId": null,
+      "name": "Chick-fil-A Sandwich",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 40,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-cup-o-noodles",
+      "categoryId": "cat-food",
+      "subCategoryId": null,
+      "name": "Cup O Noodles",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 50,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-pizza-cheese",
+      "categoryId": "cat-food",
+      "subCategoryId": "sub-pizza",
+      "name": "Cheese",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 10,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-pizza-pepperoni",
+      "categoryId": "cat-food",
+      "subCategoryId": "sub-pizza",
+      "name": "Pepperoni",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-nachos",
+      "categoryId": "cat-food",
+      "subCategoryId": null,
+      "name": "Nachos",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 70,
+      "archived": false,
+      "options": [
+        {
+          "id": "opt-no-cheese-1aafea",
+          "name": "No Cheese",
+          "priceDelta": 0.0,
+          "archived": false
+        },
+        {
+          "id": "opt-extra-cheese-e191bd",
+          "name": "Extra Cheese",
+          "priceDelta": 0.0,
+          "archived": false
+        },
+        {
+          "id": "opt-jalepenos-dfd499",
+          "name": "Jalepenos",
+          "priceDelta": 0.0,
+          "archived": false
+        }
+      ]
+    },
+    {
+      "id": "itm-pretzel",
+      "categoryId": "cat-food",
+      "subCategoryId": null,
+      "name": "Pretzel",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 80,
+      "archived": false,
+      "options": [
+        {
+          "id": "opt-salt-ae5ac4",
+          "name": "Salt",
+          "priceDelta": 0.0,
+          "archived": false
+        },
+        {
+          "id": "opt-no-salt-473cd2",
+          "name": "No Salt",
+          "priceDelta": 0.0,
+          "archived": false
+        },
+        {
+          "id": "opt-cheese-3859f3",
+          "name": "Cheese",
+          "priceDelta": 0.5,
+          "archived": false
+        }
+      ]
+    },
+    {
+      "id": "itm-chips",
+      "categoryId": "cat-snacks",
+      "subCategoryId": null,
+      "name": "Chips",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 10,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-cookies",
+      "categoryId": "cat-snacks",
+      "subCategoryId": null,
+      "name": "Cookies",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-pickle",
+      "categoryId": "cat-snacks",
+      "subCategoryId": null,
+      "name": "Pickle",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 30,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-pickle-pop",
+      "categoryId": "cat-snacks",
+      "subCategoryId": null,
+      "name": "Pickle Pop",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 40,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-popcorn",
+      "categoryId": "cat-snacks",
+      "subCategoryId": null,
+      "name": "Popcorn",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 50,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-starburst",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Starburst",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 10,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-skittles-red",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Skittles (Red)",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 20,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-skittles-purple",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Skittles (Purple)",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 30,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-skittles-sour",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Skittles (Sour)",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 40,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-airheads",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Airheads",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 50,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-airheads-extreme",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Airheads Extreme",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 60,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-sour-punch",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Sour Punch",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 70,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-mms-plain",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "M&M's (Plain)",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 80,
+      "archived": true,
+      "options": []
+    },
+    {
+      "id": "itm-candy-mms-peanut",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "M&M's (Peanut)",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 90,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-swedish-fish",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Swedish Fish",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 100,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-sour-patch-original",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Sour Patch (Original)",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 110,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-sour-patch-watermelon",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Sour Patch (Watermelon)",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 120,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-snickers",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Snickers",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 130,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-milky-way",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Milky Way",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 140,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-reeses",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Reese's",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 150,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-twix",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Twix",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 160,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-kit-kat",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Kit Kat",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 170,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-hersheys-plain",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Hershey's (Plain)",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 180,
+      "archived": false,
+      "options": []
+    },
+    {
+      "id": "itm-candy-hersheys-almond",
+      "categoryId": "cat-snacks",
+      "subCategoryId": "sub-candy",
+      "name": "Hershey's (Almond)",
+      "description": "",
+      "imageId": null,
+      "sortOrder": 190,
+      "archived": false,
+      "options": []
+    }
+  ],
+  "version": 1,
+  "updatedAt": "2026-10-15T11:49:44.2065011Z"
+}

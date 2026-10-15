@@ -1,0 +1,156 @@
+{
+  "prices": [
+    {
+      "level": "subCategory",
+      "targetId": "sub-soft-drinks",
+      "standId": null,
+      "amount": 3.0
+    },
+    {
+      "level": "subCategory",
+      "targetId": "sub-soft-drinks",
+      "standId": "inside",
+      "amount": 2.5
+    },
+    {
+      "level": "subCategory",
+      "targetId": "sub-gatorade",
+      "standId": null,
+      "amount": 3.0
+    },
+    {
+      "level": "subCategory",
+      "targetId": "sub-gatorade",
+      "standId": "inside",
+      "amount": 2.5
+    },
+    {
+      "level": "subCategory",
+      "targetId": "sub-red-bull",
+      "standId": null,
+      "amount": 3.0
+    },
+    {
+      "level": "item",
+      "targetId": "itm-water",
+      "standId": null,
+      "amount": 2.5
+    },
+    {
+      "level": "item",
+      "targetId": "itm-coffee",
+      "standId": null,
+      "amount": 2.0
+    },
+    {
+      "level": "item",
+      "targetId": "itm-hot-chocolate",
+      "standId": null,
+      "amount": 2.5
+    },
+    {
+      "level": "item",
+      "targetId": "itm-hamburger",
+      "standId": null,
+      "amount": 5.5
+    },
+    {
+      "level": "item",
+      "targetId": "itm-cheeseburger",
+      "standId": null,
+      "amount": 6.0
+    },
+    {
+      "level": "item",
+      "targetId": "itm-hot-dog",
+      "standId": null,
+      "amount": 3.5
+    },
+    {
+      "level": "item",
+      "targetId": "itm-chick-fil-a",
+      "standId": null,
+      "amount": 7.0
+    },
+    {
+      "level": "item",
+      "targetId": "itm-cup-o-noodles",
+      "standId": null,
+      "amount": 3.0
+    },
+    {
+      "level": "subCategory",
+      "targetId": "sub-pizza",
+      "standId": null,
+      "amount": 3.0
+    },
+    {
+      "level": "item",
+      "targetId": "itm-nachos",
+      "standId": null,
+      "amount": 3.5
+    },
+    {
+      "level": "item",
+      "targetId": "itm-pretzel",
+      "standId": null,
+      "amount": 2.5
+    },
+    {
+      "level": "item",
+      "targetId": "itm-chips",
+      "standId": null,
+      "amount": 1.0
+    },
+    {
+      "level": "item",
+      "targetId": "itm-cookies",
+      "standId": null,
+      "amount": 2.0
+    },
+    {
+      "level": "item",
+      "targetId": "itm-pickle",
+      "standId": null,
+      "amount": 1.5
+    },
+    {
+      "level": "item",
+      "targetId": "itm-pickle-pop",
+      "standId": null,
+      "amount": 1.5
+    },
+    {
+      "level": "item",
+      "targetId": "itm-popcorn",
+      "standId": null,
+      "amount": 2.0
+    },
+    {
+      "level": "item",
+      "targetId": "itm-popcorn",
+      "standId": "inside",
+      "amount": 1.0
+    },
+    {
+      "level": "subCategory",
+      "targetId": "sub-candy",
+      "standId": null,
+      "amount": 2.5
+    },
+    {
+      "level": "item",
+      "targetId": "itm-gatorade-white",
+      "standId": "football",
+      "amount": 3.5
+    },
+    {
+      "level": "item",
+      "targetId": "itm-pizza-pepperoni",
+      "standId": null,
+      "amount": 3.5
+    }
+  ],
+  "version": 1,
+  "updatedAt": "2026-10-15T00:33:31.302063Z"
+}

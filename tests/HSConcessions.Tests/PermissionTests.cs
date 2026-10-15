@@ -122,6 +122,7 @@ public class PermissionTests
     [Theory]
     [InlineData("generic")]
     [InlineData("wildcatsnacks")]
+    [InlineData("wildcatsnacks-demo")]
     public void Seed_permissions_match_the_default_matrix(string profile)
     {
         var path = Path.Combine(TestPaths.RepoRoot, "samples", profile, "permissions.json");

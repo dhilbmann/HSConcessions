@@ -1,0 +1,853 @@
+{
+  "stands": [
+    {
+      "id": "football",
+      "name": "Stadium",
+      "slug": "stadium",
+      "sortOrder": 10,
+      "archived": false,
+      "displayLayout": null,
+      "state": {
+        "isOpen": true,
+        "openingAt": null,
+        "closingAt": null,
+        "lastAppliedMenuId": "menu-varsity-football-2026",
+        "items": {
+          "itm-pepsi": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-diet-pepsi": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pepsi-zero": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-dr-pepper": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-diet-dr-pepper": {
+            "selling": true,
+            "status": "low"
+          },
+          "itm-starry": {
+            "selling": true,
+            "status": "soldOut"
+          },
+          "itm-mountain-dew": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-root-beer": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-brisk-iced-tea": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-strawberry-lemonade": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-red": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-blue": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-orange": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-yellow": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-white": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-red-bull": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-red-bull-diet": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-water": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-coffee": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-hot-chocolate": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-hamburger": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-cheeseburger": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-hot-dog": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-chick-fil-a": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-cup-o-noodles": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pizza-cheese": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pizza-pepperoni": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-nachos": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pretzel": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-chips": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-cookies": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pickle": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pickle-pop": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-popcorn": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-starburst": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-skittles-red": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-skittles-purple": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-skittles-sour": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-airheads": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-airheads-extreme": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-sour-punch": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-mms-plain": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-candy-mms-peanut": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-swedish-fish": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-sour-patch-original": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-sour-patch-watermelon": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-snickers": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-milky-way": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-reeses": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-twix": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-kit-kat": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-hersheys-plain": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-hersheys-almond": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-hotchocolate": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-dietpepsi": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-drpepper": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-dietdrpepper": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-mountaindew": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-sierramist": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-gatorade-fruitpunch": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-gatorade-lemonlime": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-gatorade-coolblue": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-redbull": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-monster": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-hotdog": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-chickfila": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-sourskittles": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-skittles": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-mms": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-reeses": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-doritos": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-lays": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-lays-scno": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-sunflower": {
+            "selling": false,
+            "status": "ok"
+          }
+        }
+      }
+    },
+    {
+      "id": "baseball",
+      "name": "Fields",
+      "slug": "fields",
+      "sortOrder": 20,
+      "archived": false,
+      "displayLayout": null,
+      "state": {
+        "isOpen": true,
+        "openingAt": null,
+        "closingAt": null,
+        "lastAppliedMenuId": "menu-outdoor-fields-2026",
+        "items": {
+          "itm-pepsi": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-diet-pepsi": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pepsi-zero": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-dr-pepper": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-diet-dr-pepper": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-starry": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-mountain-dew": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-root-beer": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-brisk-iced-tea": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-strawberry-lemonade": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-red": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-blue": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-orange": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-yellow": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-white": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-red-bull": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-red-bull-diet": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-water": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-coffee": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-hot-chocolate": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-hamburger": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-cheeseburger": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-hot-dog": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-chick-fil-a": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-cup-o-noodles": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pizza-cheese": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-pizza-pepperoni": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-nachos": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pretzel": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-chips": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-cookies": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pickle": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pickle-pop": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-popcorn": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-starburst": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-skittles-red": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-skittles-purple": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-skittles-sour": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-airheads": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-airheads-extreme": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-candy-sour-punch": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-mms-plain": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-candy-mms-peanut": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-swedish-fish": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-sour-patch-original": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-sour-patch-watermelon": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-snickers": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-milky-way": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-reeses": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-twix": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-kit-kat": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-hersheys-plain": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-hersheys-almond": {
+            "selling": true,
+            "status": "ok"
+          }
+        }
+      }
+    },
+    {
+      "id": "inside",
+      "name": "Inside",
+      "slug": "inside",
+      "sortOrder": 30,
+      "archived": false,
+      "displayLayout": null,
+      "state": {
+        "isOpen": true,
+        "openingAt": null,
+        "closingAt": null,
+        "lastAppliedMenuId": "menu-indoor-2026",
+        "items": {
+          "itm-pepsi": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-diet-pepsi": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pepsi-zero": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-dr-pepper": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-diet-dr-pepper": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-starry": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-mountain-dew": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-root-beer": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-brisk-iced-tea": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-strawberry-lemonade": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-red": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-blue": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-orange": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-yellow": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-gatorade-white": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-red-bull": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-red-bull-diet": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-water": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-coffee": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-hot-chocolate": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-hamburger": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-cheeseburger": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-hot-dog": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-chick-fil-a": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-cup-o-noodles": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pizza-cheese": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-pizza-pepperoni": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-nachos": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pretzel": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-chips": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-cookies": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pickle": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-pickle-pop": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-popcorn": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-starburst": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-skittles-red": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-skittles-purple": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-skittles-sour": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-airheads": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-airheads-extreme": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-candy-sour-punch": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-mms-plain": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-mms-peanut": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-swedish-fish": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-sour-patch-original": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-sour-patch-watermelon": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-snickers": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-milky-way": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-reeses": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-twix": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-kit-kat": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-hersheys-plain": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-candy-hersheys-almond": {
+            "selling": true,
+            "status": "ok"
+          },
+          "itm-hotchocolate": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-dietpepsi": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-drpepper": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-dietdrpepper": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-mountaindew": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-sierramist": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-gatorade-fruitpunch": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-gatorade-lemonlime": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-gatorade-coolblue": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-redbull": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-monster": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-hotdog": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-chickfila": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-doritos": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-lays": {
+            "selling": false,
+            "status": "ok"
+          },
+          "itm-lays-scno": {
+            "selling": false,
+            "status": "ok"
+          }
+        }
+      }
+    },
+    {
+      "id": "lot",
+      "name": "Parking Lot",
+      "slug": "lot",
+      "sortOrder": 40,
+      "archived": true,
+      "displayLayout": null,
+      "state": {
+        "isOpen": false,
+        "openingAt": null,
+        "closingAt": null,
+        "lastAppliedMenuId": null,
+        "items": {}
+      }
+    }
+  ],
+  "version": 1,
+  "updatedAt": "2026-10-15T11:53:45.0647208Z"
+}
