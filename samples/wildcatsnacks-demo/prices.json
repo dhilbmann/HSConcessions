@@ -149,8 +149,26 @@
       "targetId": "itm-pizza-pepperoni",
       "standId": null,
       "amount": 3.5
+    },
+    {
+      "level": "item",
+      "targetId": "itm-candy-skittles-red",
+      "standId": null,
+      "amount": 2.75
+    },
+    {
+      "level": "item",
+      "targetId": "itm-candy-skittles-purple",
+      "standId": null,
+      "amount": 2.75
+    },
+    {
+      "level": "item",
+      "targetId": "itm-candy-skittles-sour",
+      "standId": null,
+      "amount": 2.75
     }
   ],
   "version": 1,
-  "updatedAt": "2026-10-15T00:33:31.302063Z"
+  "updatedAt": "2026-10-16T02:07:13Z"
 }
